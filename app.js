@@ -4,26 +4,19 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
+var uglifyJs = require("uglify-js");
+var fs = require('fs');
 
-//models
-require('./models/poll');
+//BBDD and Models
+require('./app_api/models/db');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var api = require('./routes/api');
+var routes = require('./app_api/routes/index');
+var api = require('./app_api/routes/api');
 
 var app = express();
 
-//model connect
-mongoose.connect('mongodb://localhost/parrotPoll', function(err, res) {
-  if(err) {
-    console.log('ERROR: connecting to Database. ' + err);
-  }
-});
-
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'app_api/views'));
 app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
@@ -35,7 +28,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/users', users);
 app.use('/api', api);
 
 // catch 404 and forward to error handler

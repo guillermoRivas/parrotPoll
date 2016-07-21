@@ -19,6 +19,10 @@ body {
     height: 50px;
     float: left;
 }
-.contenido {
+.jumbotron {
     margin: 100px;
+}
+
+.contenido {
+    margin-top: 50px;
 }

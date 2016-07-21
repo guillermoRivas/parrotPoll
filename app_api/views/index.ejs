@@ -5,20 +5,20 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Home</title>
         <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/theme.min.css">
-        <link rel="stylesheet" href="css/estilos.css">
+        <link rel="stylesheet" href="stylesheets/estilos.css">
         <link rel="stylesheet" href="./bower_components/angular-loading-bar/build/loading-bar.min.css">
         <script src="./bower_components/angular/angular.min.js" charset="utf-8"></script>
         <script src="./bower_components/angular-loading-bar/build/loading-bar.min.js" charset="utf-8"></script>
         <script src="./bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
         <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js" charset="utf-8"></script>
-        <script src="./app.js" charset="utf-8"></script>
-        <script src="./index.js" charset="utf-8"></script>
+        <script src="app/app.js" charset="utf-8"></script>
+        <script src="app/index.js" charset="utf-8"></script>
     </head>
     <body ng-app="parrotPollApp">
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <img class="loro" src="img\parrot.png" alt="loro"/>
+                    <img class="loro" src="images/parrot.png" alt="loro"/>
                     <a class="navbar-brand" href="#">
                         Parrot Poll</a>
                 </div>
@@ -40,7 +40,7 @@
             <h1>My First Bootstrap Page</h1>
             <p>Resize this responsive page to see the effect!</p>
         </div>
-        <div ng-controller="indexCtrl" class="container">
+        <div ng-controller="indexCtrl" class="container contenido">
             <div class="row">
                 <div ng-repeat="poll in polls" class="col-sm-4">
                     <h3>{{poll.name}}</h3>

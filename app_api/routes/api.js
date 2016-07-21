@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var PollCtrl = require('../controllers/pollCtrl');
+var UserCtrl = require('../controllers/userCtrl');
 
 router
   .get('/poll',PollCtrl.findAllPoll)
@@ -8,6 +9,8 @@ router
   .post('/poll',PollCtrl.addPoll)
   .put('/poll',PollCtrl.updatePoll);
 
-//router.get('/user',PollCtrl.findAllPoll).post('/user',PollCtrl.addPoll);
+router
+  .get('/user',UserCtrl.findAllUsers)
+  .post('/user',UserCtrl.addUser);
 
 module.exports = router;

@@ -19,10 +19,19 @@ body {
     height: 50px;
     float: left;
 }
-.jumbotron {
-    margin: 100px;
+.cabecera {
+    margin-top: 100px;
 }
 
 .contenido {
     margin-top: 50px;
+}
+.poll-item{
+  padding: 5px;
+}
+.odd-item{
+  background-color: indianred;
+}
+.even-item{
+  background-color: mediumaquamarine;
 }

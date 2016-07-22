@@ -11,6 +11,7 @@ router
 
 router
   .get('/user',UserCtrl.findAllUsers)
-  .post('/user',UserCtrl.addUser);
+  .post('/user',UserCtrl.addUser)
+  .post('/user/log',UserCtrl.login);
 
 module.exports = router;

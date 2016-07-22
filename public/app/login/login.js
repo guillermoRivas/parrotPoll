@@ -13,4 +13,18 @@ angular.module('parrotPollApp')
                 }
             );
         };
+
+        $scope.login = function() {
+          var post = $http.post('api/user/log', $scope.user).then(
+              function(res) {
+                  // success callback
+                  $scope.usuario = res.data;
+                  $scope.userReg = undefined;
+              },
+              function(response) {
+                  // failure callback
+              }
+          );
+        };
+
     });

@@ -85,26 +85,50 @@
                     <h3>Sign up now</h3>
                     <p>Fill in the form below to get instant access:</p>
                 </div>
-                <form ng-submit="submit()" role="form" id="form" class="registration-form">
-                    <div class="form-group">
-                        <label class="sr-only" for="form-user-name">user name</label>
-                        <input ng-model="userReg.userName" required type="text" name="form-name" placeholder="user name..." class="form-control" id="form-user-name">
+                <form ng-submit="submit()" name="userForm" id="userForm" role="form" novalidate>
+                    <div class="form-group" ng-class="{ 'has-error': userForm.regUserName.$touched && userForm.regUserName.$invalid }">
+                        <label class="sr-only" for="regUserName">User name</label>
+                        <input type="text" ng-model="userReg.userName" ng-minlength="5" ng-maxlength="10" required name="regUserName" placeholder="user name..." class="form-control">
+                        <div class="help-block" ng-messages="userForm.regUserName.$error" ng-if="userForm.regUserName.$touched">
+                            <p ng-message="minlength">Your name is too short.</p>
+                            <p ng-message="maxlength">Your name is too long.</p>
+                            <p ng-message="required">Your name is required.</p>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="sr-only" for="form-email">Email</label>
-                        <input ng-model="userReg.email" required type="text" name="form-email" placeholder="Email..." class="form-email form-control" id="form-email">
+
+                    <div class="form-group" ng-class="{ 'has-error': userForm.email.$touched && userForm.email.$invalid }">
+                        <label class="sr-only" for="email">Email</label>
+                        <input type="email" ng-model="userReg.email" required name="email" class="form-control" placeholder="email ...">
+
+                        <div class="help-block" ng-messages="userForm.email.$error" ng-if="userForm.email.$touched">
+                            <p ng-message="required">This field is required</p>
+                            <p ng-message="email">This needs to be a valid email</p>
+                        </div>
+
                     </div>
-                    <div class="form-group">
-                        <label class="sr-only" for="form-reg-password">password</label>
-                        <input ng-model="userReg.password" required type="password" placeholder="password..." class="form-control" id="form-reg-password">
+
+                    <div class="form-group" ng-class="{ 'has-error': userForm.password.$touched && userForm.password.$invalid }">
+                        <label class="sr-only" for="password">password</label>
+                        <input ng-model="userReg.password" ng-minlength="6" ng-maxlength="12" required type="password" placeholder="password..." class="form-control" name="password">
+                        <div class="help-block" ng-messages="userForm.password.$error" ng-if="userForm.password.$touched">
+                            <p ng-message="required">This field is required</p>
+                            <p ng-message="minlength">Your name is too short.</p>
+                            <p ng-message="maxlength">Your name is too long.</p>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="sr-only" for="form-reg-re-password">repeat password</label>
-                        <input ng-model="sdfas" password-verify="userReg.password" required type="password" placeholder="repeat password..." class="form-control" id="form-reg-re-password">
-                        <div ng-show="form.form-reg-re-password.$error.passwordVerify">
-                            Fields are not equal!</div>
+
+                    <div class="form-group" ng-class="{ 'has-error': userForm.rePassword.$touched && userForm.rePassword.$invalid }">
+                        <label class="sr-only" for="password">repeat password</label>
+                        <input ng-model="rePassword" password-verify="userReg.password" required type="password" placeholder="repeat password..." class="form-control" name="rePassword">
+                        <div class="help-block" ng-messages="userForm.rePassword.$error" ng-if="userForm.rePassword.$touched">
+                            <p ng-message="required">This field is required</p>
+                        </div>
                     </div>
-                    <button  type="submit" class="btn">Sign me up!</button>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn">Sign me up!</button>
+                    </div>
+
                 </form>
             </div>
         </div>

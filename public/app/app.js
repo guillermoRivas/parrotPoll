@@ -21,6 +21,11 @@ angular.module('parrotPollApp', ['ngRoute', 'angular-loading-bar','ngMessages'])
                 controllerAs: "vm",
                 templateUrl: "app/dashboard/dashboard_index.html"
             })
+            .when("/dashboard/poll", {
+                controller: "dashboardPollCtrl",
+                controllerAs: "vm",
+                templateUrl: "app/dashboard/dashboard_poll.html"
+            })
             .when("/opciones", {
                 controller: "appCtrl",
                 controllerAs: "vm",

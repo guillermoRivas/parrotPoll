@@ -22,6 +22,15 @@ var pollSchema = new Schema({
     required: true
   },
   description: String,
+  owner: [{type:Schema.Types.ObjectId}],
+  ispublic: {
+    type: Boolean,
+    default: true
+  },
+  resultIsPublic:{
+    type: Boolean,
+    default: true
+  },
   questions: [questionSchema],
   creationDate: Date,
   updatedDate: Date

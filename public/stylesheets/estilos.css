@@ -25,9 +25,11 @@ body {
 
 .contenido {
     margin-top: 50px;
+    margin-bottom: 100px;
 }
 .poll-item{
   padding: 5px;
+  margin-bottom: 10px;
 }
 .odd-item{
   background-color: indianred;

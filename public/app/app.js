@@ -1,4 +1,4 @@
-angular.module('parrotPollApp', ['ngRoute', 'angular-loading-bar','ngMessages'])
+angular.module('parrotPollApp', ['ngRoute', 'angular-loading-bar','ngMessages', 'ngCookies'])
     .config(function($routeProvider) {
         $routeProvider
             .when("/", {
@@ -14,7 +14,7 @@ angular.module('parrotPollApp', ['ngRoute', 'angular-loading-bar','ngMessages'])
             .when("/login", {
                 controller: "loginCtrl",
                 controllerAs: "vm",
-                templateUrl: "app/login/form.html"
+                templateUrl: "app/login/login.html"
             })
             .when("/poll/:pollId", {
                 controller: "pollCtrl",
@@ -35,7 +35,8 @@ angular.module('parrotPollApp', ['ngRoute', 'angular-loading-bar','ngMessages'])
                 controller: "appCtrl",
                 controllerAs: "vm",
                 templateUrl: "opciones.html"
-            });
+            })
+            .otherwise({ redirectTo: '/home' });
     });
 
 angular.module('parrotPollApp').directive("passwordVerify", function() {

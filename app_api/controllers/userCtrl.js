@@ -28,21 +28,39 @@ exports.addUser = function(req, res) {
 exports.login = function(req, res) {
     console.log('POST/login');
     console.log(req.body);
-    User.findOne({
-        'userName': req.body.userName
-    }, function(err, user) {
-        if (err) return res.status(500).send(err.message);
-        if (!user.password) {
-            comparePassword(req.body.password, user.password, user.passwordSalt, function(result) {
-              if(result){
-                res.status(200).json(user);
-              }else {
-                res.status(200).json(undefined);
-              }
-            });
-        }
+    loginfunction(req.body,function(result) {
+      if (result) {
+        User.findOne({'userName': req.body.userName}).exec(function(err, user){
+          if (err) return res.status(500).send(err.message);
+          res.status(200).json(user);
+        });
+      } else {
+        res.status(200).json(undefined);
+      }
     });
 };
+
+function loginfunction(req,callback) {
+  User.findOne({
+      'userName': req.userName
+  }).select('password passwordSalt').exec(function(err, user) {
+      if (err) return res.status(500).send(err.message);
+      if (user.password) {
+          comparePassword(req.password, user.password, user.passwordSalt, function(result) {
+             if(result){
+               console.log(result);
+               callback(true);
+             }else {
+               console.log(result);
+              callback(false);
+            }
+           });
+      }else{
+        console.log(result);
+        callback(false);
+      }
+  });
+}
 
 /**
  * generates random string of characters i.e salt
@@ -80,6 +98,6 @@ function saltHashPassword(userpassword, callback) {
 function comparePassword(reqPassword, passwor, salt, callback) {
     var result = false;
     var reqPasswordHash = sha512(reqPassword, salt);
-    if (reqPasswordHash == passwor) result = true;
+    if (reqPasswordHash.passwordHash == passwor) result = true;
     callback(result);
 }

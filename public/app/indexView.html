@@ -1,36 +1,17 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <img class="loro" src="images/parrot.png" alt="loro"/>
-            <a class="navbar-brand" href="#">
-                Parrot Poll</a>
-        </div>
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <a href="#/login">
-                    <span class="glyphicon glyphicon-user"></span>
-                    Sign Up</a>
-            </li>
-            <li>
-                <a href="#/login">
-                    <span class="glyphicon glyphicon-log-in"></span>
-                    Login</a>
-            </li>
-        </ul>
-    </div>
-</nav>
-<div class="jumbotron text-center cabecera">
-    <h1>My First Bootstrap Page</h1>
-    <p>Resize this responsive page to see the effect!</p>
-</div>
-<div ng-controller="indexCtrl" class="container contenido">
-    <div class="row">
-        <div ng-repeat="poll in polls" class="col-sm-4">
-            <div class="poll-item" ng-class-odd="'odd-item'" ng-class-even="'even-item'">
-                <h3>{{poll.name}}</h3>
-                <p>{{poll.description}}</p>
-                <p>{{poll.creationDate}}</p>
+<div class="container" ng-controller="indexCtrl">
+    <div class="jumbotron">
+        <h1>Parrot poll</h1>
+        <p>Este sitio esta en construcción</p>
+        <form>
+            <div id="subscribe">
+                <input ng-model="password" type="text" placeholder="acceso desarrollo..." required>
+                <input type="button" value="entrar" ng-click="redirect()">
+                <div class="clear"></div>
             </div>
-        </div>
+        </form>
+      <p>
+        Código disponible en <a href="https://github.com/guillermoRivas/parrotPoll">github</a>
+      </p>
     </div>
+
 </div>

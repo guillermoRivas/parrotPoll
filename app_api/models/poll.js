@@ -1,12 +1,28 @@
 var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 
+var answerSchema = new Schema({
+  text: {
+    type: String,
+    required: true
+  }
+});
+
+var questionSchema = new Schema({
+  text: {
+    type: String,
+    required: true
+  },
+  answers: [answerSchema]
+});
+
 var pollSchema = new Schema({
   name: {
     type: String,
     required: true
   },
   description: String,
+  questions: [questionSchema],
   creationDate: Date,
   updatedDate: Date
 });

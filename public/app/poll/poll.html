@@ -1,113 +1,49 @@
-        <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <img class="loro" src="images\parrot.png" alt="loro"/>
-                    <a class="navbar-brand" href="#">
-                        Parrot Poll</a>
-                </div>
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="#">
-                            <span class="glyphicon glyphicon-user"></span>
-                            Sign Up</a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <span class="glyphicon glyphicon-log-in"></span>
-                            Login</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        <div class="jumbotron text-center contenido">
-            <h1>My First Poll in Bootstrap</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <img class="loro" src="images\parrot.png" alt="loro"/>
+            <a class="navbar-brand" href="#">
+                Parrot Poll</a>
         </div>
-        <div class="container">
-            <div class="row">
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a href="#">
+                    <span class="glyphicon glyphicon-user"></span>
+                    Sign Up</a>
+            </li>
+            <li>
+                <a href="#">
+                    <span class="glyphicon glyphicon-log-in"></span>
+                    Login</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="jumbotron text-center contenido">
+    <h1>{{poll.name}}</h1>
+    <p>{{poll.description}}</p>
+</div>
+<div class="container">
+    <div class="row">
 
-                <div class="panel panel-primary">
-                    <div class="panel-heading">Question??</div>
-                    <div class="panel-body">
-                        <div class="container-fluid">
-                          <div style="margin: 10px">
-                              <div class="row">
-                                  <div class="col-sm-4">
-                                      <button type="button" class="btn btn-default" style="display: block; width: 100%;">seleccional</button>
-                                  </div>
-                                  <div class="col-sm-8">
-                                      Respuesta Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                                  </div>
-                              </div>
-                          </div>
-                            <div style="margin: 10px">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <button type="button" class="btn btn-default" style="display: block; width: 100%;">seleccional</button>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        Respuesta Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                                    </div>
-                                </div>
+        <div class="panel panel-primary" ng-repeat="question in poll.questions">
+            <div class="panel-heading">¿¿
+                {{question.text}}
+                ??</div>
+            <div class="panel-body">
+                <div class="container-fluid">
+                    <div style="margin: 10px" ng-repeat="answer in question.answers">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <button type="button" class="btn btn-default" style="display: block; width: 100%;">seleccional</button>
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="panel panel-primary">
-                    <div class="panel-heading">Question??</div>
-                    <div class="panel-body">
-                        <div class="container-fluid">
-                          <div style="margin: 10px">
-                              <div class="row">
-                                  <div class="col-sm-4">
-                                      <button type="button" class="btn btn-default" style="display: block; width: 100%;">seleccional</button>
-                                  </div>
-                                  <div class="col-sm-8">
-                                      Respuesta Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                                  </div>
-                              </div>
-                          </div>
-                            <div style="margin: 10px">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <button type="button" class="btn btn-default" style="display: block; width: 100%;">seleccional</button>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        Respuesta Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="panel panel-primary">
-                    <div class="panel-heading">Question??</div>
-                    <div class="panel-body">
-                        <div class="container-fluid">
-                          <div style="margin: 10px">
-                              <div class="row">
-                                  <div class="col-sm-4">
-                                      <button type="button" class="btn btn-default" style="display: block; width: 100%;">seleccional</button>
-                                  </div>
-                                  <div class="col-sm-8">
-                                      Respuesta Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                                  </div>
-                              </div>
-                          </div>
-                            <div style="margin: 10px">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <button type="button" class="btn btn-default" style="display: block; width: 100%;">seleccional</button>
-                                    </div>
-                                    <div class="col-sm-8">
-                                        Respuesta Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                                    </div>
-                                </div>
+                            <div class="col-sm-8">
+                                {{answer.text}}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>

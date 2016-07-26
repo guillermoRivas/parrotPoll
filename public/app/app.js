@@ -6,12 +6,17 @@ angular.module('parrotPollApp', ['ngRoute', 'angular-loading-bar','ngMessages'])
                 controllerAs: "vm",
                 templateUrl: "app/indexView.html"
             })
+            .when("/home", {
+                controller: "homeCtrl",
+                controllerAs: "vm",
+                templateUrl: "app/home.html"
+            })
             .when("/login", {
                 controller: "loginCtrl",
                 controllerAs: "vm",
                 templateUrl: "app/login/form.html"
             })
-            .when("/poll", {
+            .when("/poll/:pollId", {
                 controller: "pollCtrl",
                 controllerAs: "vm",
                 templateUrl: "app/poll/poll.html"

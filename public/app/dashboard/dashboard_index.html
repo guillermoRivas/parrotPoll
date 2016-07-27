@@ -163,7 +163,7 @@
                 </ul>
                 <ul class="nav nav-sidebar">
                     <li>
-                        <a href="">Nav item</a>
+                        <a href="#/dashboard/poll">nueva poll</a>
                     </li>
                     <li>
                         <a href="">Nav item again</a>
@@ -221,7 +221,7 @@
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
-                            <tr ng-repeat="poll in polls">
+                            <tr>
                                 <th>#</th>
                                 <th>Nombre</th>
                                 <th>Header</th>
@@ -230,12 +230,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1,001</td>
-                                <td>Lorem</td>
-                                <td>ipsum</td>
-                                <td>dolor</td>
-                                <td>sit</td>
+                            <tr ng-repeat="poll in polls">
+                                <td>{{$index + 1}}</td>
+                                <td>{{poll.name}}</td>
+                                <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
                             </tr>
                         </tbody>
                     </table>

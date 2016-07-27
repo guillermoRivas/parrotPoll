@@ -196,31 +196,46 @@
                     <textarea ng-model="poll.description" placeholder="new description..."></textarea>
                 </p>
             </div>
-            <div class="container">
-                <div class="row">
+            <div class="container-fluid">
+                <form role="form" ng-submit="guardar()">
 
-                    <div class="panel panel-primary" ng-repeat="question in poll.questions">
-                        <div class="panel-heading">Question??</div>
-                        <div class="panel-body">
-                            <div class="container-fluid">
-                                <div ng-repeat="answer in question.answers" style="margin: 10px">
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <button type="button" class="btn btn-default" style="display: block; width: 100%;">seleccional</button>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            Respuesta Lorem ipsum dolor sit amet, consectetur adipisicing elit
+                    <div class="form-group">
+                        <label for="owner">Propietario</label>
+                        <input disabled type="text" class="form-control" id="owner" ng-model="poll.owner">
+                    </div>
+
+                    <div class="checkbox">
+                        <label><input type="checkbox" ng-model="poll.isPublic">
+                            Pública</label>
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox" ng-model="poll.resultIsPublic">
+                            Resultados público</label>
+                    </div>
+
+                    <div class="row">
+                        <div class="panel panel-primary" ng-repeat="question in poll.questions">
+                            <div class="panel-heading">
+                              <input type="text" class="form-control" ng-model="question.text" placeholder="Pregunta... ?" required>
+                            </div>
+                            <div class="panel-body">
+                                <div class="container-fluid">
+                                    <div ng-repeat="answer in question.answers" style="margin: 10px">
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" ng-model="answer.text" placeholder="Respuesta..." required>
+                                            </div>
                                         </div>
                                     </div>
+                                    <button type="button" ng-click="newAnswer(question)" class="btn btn-default" style="display: block; width: 100%;">new ansquer</button>
                                 </div>
-                                <button type="button" ng-click="newAnswer(question)" class="btn btn-default" style="display: block; width: 100%;">new ansquer</button>
                             </div>
                         </div>
+                        <button type="button" ng-click="newQuestion()" class="btn btn-default" style="display: block; width: 100%;">new question</button>
                     </div>
-                    <button type="button" ng-click="newQuestion()" class="btn btn-default" style="display: block; width: 100%;">new question</button>
-                </div>
+                    <input type="submit" class="btn" value="Guardar">
+                </form>
             </div>
-
         </div>
     </div>
 </div>

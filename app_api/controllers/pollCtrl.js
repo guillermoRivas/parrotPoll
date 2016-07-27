@@ -18,6 +18,19 @@ exports.findByIdPoll = function(req, res) {
     });
 };
 
+exports.findByOwnerPolls = function(req, res) {
+    var owner = mongoose.Types.ObjectId(req.params.idOwner);
+    console.log('GET/pollsOwners/' + owner);
+    Poll.
+    find({
+            owner: owner
+        })
+        .exec(function(err, polls) {
+            if (err) res.send(500, err.message);
+            res.status(200).json(polls);
+        });
+};
+
 exports.addPoll = function(req, res) {
     console.log('POST/poll');
     console.log(req.body);

@@ -1,32 +1,54 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Parrot poll</title>
-        <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/theme.min.css">
-        <link rel="stylesheet" href="stylesheets/estilos.css">
-        <link rel="stylesheet" href="./bower_components/angular-loading-bar/build/loading-bar.min.css">
-        <script src="./bower_components/angular/angular.min.js" charset="utf-8"></script>
-        <script src="./bower_components/angular-route/angular-route.min.js" charset="utf-8"></script>
-        <script src="./bower_components/angular-loading-bar/build/loading-bar.min.js" charset="utf-8"></script>
-        <script src="./bower_components/angular-messages/angular-messages.min.js" charset="utf-8"></script>
-        <script src="./bower_components/angular-cookies/angular-cookies.min.js" charset="utf-8"></script>
-        <script src="./bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
-        <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js" charset="utf-8"></script>
-        <script src="app/app.js" charset="utf-8"></script>
-        <script src="app/index.js" charset="utf-8"></script>
-        <script src="app/login/login.js" charset="utf-8"></script>
-        <script src="app/poll/poll.js" charset="utf-8"></script>
-        <script src="app/dashboard/dashboard.js" charset="utf-8"></script>
-        <script src="app/dashboard/dashboard_poll.js" charset="utf-8"></script>
-    </head>
-    <body ng-app="parrotPollApp">
-        <div ng-view></div>
-        <footer class="footer">
-            <div class="container">
-                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Parrot poll</title>
+    <link rel="stylesheet" href="./bower_components/bootstrap/dist/css/theme.min.css">
+    <link rel="stylesheet" href="stylesheets/estilos.css">
+    <link rel="stylesheet" href="./bower_components/angular-loading-bar/build/loading-bar.min.css">
+    <script src="./bower_components/angular/angular.min.js" charset="utf-8"></script>
+    <script src="./bower_components/angular-ui-router/release/angular-ui-router.min.js" charset="utf-8"></script>
+    <script src="./bower_components/satellizer/dist/satellizer.min.js" charset="utf-8"></script>
+    <script src="./bower_components/angular-loading-bar/build/loading-bar.min.js" charset="utf-8"></script>
+    <script src="./bower_components/angular-messages/angular-messages.min.js" charset="utf-8"></script>
+    <script src="./bower_components/jquery/dist/jquery.min.js" charset="utf-8"></script>
+    <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js" charset="utf-8"></script>
+    <script src="app/app.js" charset="utf-8"></script>
+    <script src="app/index.js" charset="utf-8"></script>
+    <script src="app/navbar.js" charset="utf-8"></script>
+    <script src="app/home.js" charset="utf-8"></script>
+    <script src="app/login/loginSingup.js" charset="utf-8"></script>
+</head>
+
+<body ng-app="parrotPollApp">
+    <div ui-view="nav"></div>
+    <div ui-view="menu"></div>
+    <div ui-view="contenido" class="contenido">
+        <div class="container" ng-controller="indexCtrl">
+            <div class="jumbotron">
+                <h1>Parrot poll</h1>
+                <p>Este sitio esta en construcción</p>
+                <form ng-submit="redirect()">
+                    <div id="subscribe">
+                        <input ng-model="password" type="password" placeholder="acceso desarrollo..." required>
+                        <input type="submit" value="entrar">
+                        <div class="clear"></div>
+                    </div>
+                </form>
+                <p>
+                    Código disponible en <a href="https://github.com/guillermoRivas/parrotPoll">github</a>
+                </p>
             </div>
-        </footer>
-    </body>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+    </footer>
+</body>
+
 </html>

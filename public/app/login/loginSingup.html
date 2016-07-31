@@ -1,0 +1,122 @@
+<div ng-controller="loginSingupCtrl">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2 text">
+                <h1>Inicia sesión o registrate</h1>
+                <div class="description">
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit... Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-5">
+
+                <div>
+
+                    <div class="form-top-left">
+                        <h3>Inicar sesión</h3>
+                        <p>Entra con tu usuario y contraseña:</p>
+                    </div>
+
+                    <div class="form-bottom">
+                        <form role="form" ng-submit="login()" name="loginForm">
+                            <div class="form-group">
+                                <label class="sr-only" for="form-username">Username</label>
+                                <input ng-model="user.userName" type="text" name="form-username" placeholder="Usuario..." class="form-control" id="form-username">
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="form-password">Password</label>
+                                <input ng-model="user.password" type="password" name="form-password" placeholder="Contraseña..." class="form-control" id="form-password">
+                            </div>
+                            <button type="submit" class="btn">Entrar!</button>
+                        </form>
+                        <div class="help-block" ng-if="usuarioNoValido">
+                            <p>{{usuarioNoValido}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3>...o inicia sesión con:</h3>
+                    <div class="social-login-buttons">
+                        <a class="btn" href="#">
+                            <i class="fa fa-facebook"></i>
+                            Facebook
+                        </a>
+                        <a class="btn" href="#">
+                            <i class="fa fa-twitter"></i>
+                            Twitter
+                        </a>
+                        <a class="btn" href="#">
+                            <i class="fa fa-google-plus"></i>
+                            Google Plus
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-1 middle-border"></div>
+            <div class="col-sm-1"></div>
+
+            <div class="col-sm-5">
+                <div>
+                    <div>
+                        <h3>Crea una cuenta</h3>
+                        <p>Rellene el siguiente formulario para obtener acceso instantáneo :</p>
+                    </div>
+                    <form ng-submit="submit()" name="userForm" id="userForm" role="form" novalidate>
+                        <div class="form-group" ng-class="{ 'has-error': userForm.regUserName.$touched && userForm.regUserName.$invalid }">
+                            <label class="sr-only" for="regUserName">Nombre de usuario</label>
+                            <input type="text" ng-model="userReg.userName" ng-minlength="5" ng-maxlength="10" required name="regUserName" placeholder="nombre de usuario..." class="form-control">
+                            <div class="help-block" ng-messages="userForm.regUserName.$error" ng-if="userForm.regUserName.$touched">
+                                <p ng-message="minlength">El nombre es demasiado corto.</p>
+                                <p ng-message="maxlength">El nombre es demasiado largo.</p>
+                                <p ng-message="required">Este campo es necesario.</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class="{ 'has-error': userForm.email.$touched && userForm.email.$invalid }">
+                            <label class="sr-only" for="email">Email</label>
+                            <input type="email" ng-model="userReg.email" required name="email" class="form-control" placeholder="email ...">
+
+                            <div class="help-block" ng-messages="userForm.email.$error" ng-if="userForm.email.$touched">
+                                <p ng-message="required">Este campo es necesario</p>
+                                <p ng-message="email">El email no es valido: ejem nombre@algo.com</p>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group" ng-class="{ 'has-error': userForm.password.$touched && userForm.password.$invalid }">
+                            <label class="sr-only" for="password">password</label>
+                            <input ng-model="userReg.password" ng-minlength="6" ng-maxlength="12" required type="password" placeholder="contraseña..." class="form-control" name="password">
+                            <div class="help-block" ng-messages="userForm.password.$error" ng-if="userForm.password.$touched">
+                                <p ng-message="required">Este campo es necesario</p>
+                                <p ng-message="minlength">La contraseña es deamsiado corta.</p>
+                                <p ng-message="maxlength">La contraseña es deamsiado larga.</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group" ng-class="{ 'has-error': userForm.rePassword.$touched && userForm.rePassword.$invalid }">
+                            <label class="sr-only" for="password">repeat password</label>
+                            <input ng-model="rePassword" password-verify="userReg.password" required type="password" placeholder="repite la contraseña..." class="form-control" name="rePassword">
+                            <div class="help-block" ng-messages="userForm.rePassword.$error" ng-if="userForm.rePassword.$touched">
+                                <p ng-message="required">Este campo es necesario</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn">crear cuenta!</button>
+                        </div>
+
+                    </form>
+                    <div class="help-block" ng-if="errorRegistro">
+                        <p>{{errorRegistro}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

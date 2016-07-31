@@ -1,72 +1,36 @@
-angular.module('parrotPollApp', ['ngRoute', 'angular-loading-bar','ngMessages', 'ngCookies'])
-    .config(function($routeProvider) {
-        $routeProvider
-            .when("/", {
-                controller: "indexCtrl",
-                controllerAs: "vm",
-                templateUrl: "app/indexView.html"
+angular.module('parrotPollApp', ['ui.router', 'satellizer', 'angular-loading-bar', 'ngMessages'])
+    .config(function($stateProvider, $urlRouterProvider) {
+        $stateProvider
+            .state('index', {
+                url: "/",
             })
-            .when("/home", {
-                controller: "homeCtrl",
-                controllerAs: "vm",
-                templateUrl: "app/home.html"
+            .state('home', {
+                url: "/home",
+                views: {
+                    "nav": {
+                        templateUrl: "app/navbar.html"
+                    },
+                    "contenido": {
+                        templateUrl: "app/home.html"
+                    }
+                }
             })
-            .when("/login", {
-                controller: "loginCtrl",
-                controllerAs: "vm",
-                templateUrl: "app/login/login.html"
-            })
-            .when("/poll/:pollId", {
-                controller: "pollCtrl",
-                controllerAs: "vm",
-                templateUrl: "app/poll/poll.html"
-            })
-            .when("/dashboard", {
-                controller: "dashboardCtrl",
-                controllerAs: "vm",
-                templateUrl: "app/dashboard/dashboard_index.html"
-            })
-            .when("/dashboard/poll", {
-                controller: "dashboardPollCtrl",
-                controllerAs: "vm",
-                templateUrl: "app/dashboard/dashboard_poll.html"
-            })
-            .when("/opciones", {
-                controller: "appCtrl",
-                controllerAs: "vm",
-                templateUrl: "opciones.html"
-            })
-            .otherwise({ redirectTo: '/home' });
+            .state('loginSingup', {
+                url: "/entrar",
+                views: {
+                    "nav": {
+                        templateUrl: "app/navbar.html"
+                    },
+                    "contenido": {
+                        templateUrl: "app/login/loginSingup.html"
+                    }
+                }
+            });
+        $urlRouterProvider.otherwise("/");
+    })
+    .config(function($authProvider) {
+        $authProvider.loginUrl = "api/auth/login";
+        $authProvider.signupUrl = "api/auth/signup";
+        $authProvider.tokenName = "token";
+        $authProvider.tokenPrefix = "parrotPollApp";
     });
-
-angular.module('parrotPollApp').directive("passwordVerify", function() {
-  return {
-    require: "ngModel",
-    scope: {
-      passwordVerify: '='
-    },
-    link: function(scope, element, attrs, ctrl) {
-      scope.$watch(function() {
-          var combined;
-
-          if (scope.passwordVerify || ctrl.$viewValue) {
-             combined = scope.passwordVerify + '_' + ctrl.$viewValue;
-          }
-          return combined;
-      }, function(value) {
-          if (value) {
-              ctrl.$parsers.unshift(function(viewValue) {
-                  var origin = scope.passwordVerify;
-                  if (origin !== viewValue) {
-                      ctrl.$setValidity("passwordVerify", false);
-                      return undefined;
-                  } else {
-                      ctrl.$setValidity("passwordVerify", true);
-                      return viewValue;
-                  }
-              });
-          }
-      });
-   }
- };
-});

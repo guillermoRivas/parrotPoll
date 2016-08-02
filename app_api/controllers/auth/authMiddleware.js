@@ -1,10 +1,8 @@
-
 var jwt = require('jwt-simple');
 var moment = require('moment');
 var config = require('./config');
 
 exports.ensureAuthenticated = function(req, res, next) {
-  console.log("acceso no autorizado");
   if(!req.headers.authorization) {
     return res
       .status(403)

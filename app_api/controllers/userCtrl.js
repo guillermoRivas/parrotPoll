@@ -11,6 +11,22 @@ exports.findAllUsers = function(req, res) {
     });
 };
 
+exports.exixtUserByUserName = function(req, res) {
+    var userName = req.params.userName;
+    console.log('GET/user/exist/' + userName);
+    User.find({
+        userName: userName
+    }).exec(function(err, user) {
+        if (err) res.send(500, err.message);
+        if(user.length > 0){
+            res.status(200).json({result:true});
+        }else {
+            res.status(200).json({result:false});
+        }
+
+    });
+};
+
 exports.addUser = function(req, res) {
     console.log('POST/user');
     console.log(req.body);
@@ -28,38 +44,40 @@ exports.addUser = function(req, res) {
 exports.login = function(req, res) {
     console.log('POST/login');
     console.log(req.body);
-    loginfunction(req.body,function(result) {
-      if (result) {
-        User.findOne({'userName': req.body.userName}).exec(function(err, user){
-          if (err) return res.status(500).send(err.message);
-          res.status(200).json(user);
-        });
-      } else {
-        res.status(200).json(undefined);
-      }
+    loginfunction(req.body, function(result) {
+        if (result) {
+            User.findOne({
+                'userName': req.body.userName
+            }).exec(function(err, user) {
+                if (err) return res.status(500).send(err.message);
+                res.status(200).json(user);
+            });
+        } else {
+            res.status(200).json(undefined);
+        }
     });
 };
 
-function loginfunction(req,callback) {
-  User.findOne({
-      'userName': req.userName
-  }).select('password passwordSalt').exec(function(err, user) {
-      if (err) return res.status(500).send(err.message);
-      if (user.password) {
-          comparePassword(req.password, user.password, user.passwordSalt, function(result) {
-             if(result){
-               console.log(result);
-               callback(true);
-             }else {
-               console.log(result);
-              callback(false);
-            }
-           });
-      }else{
-        console.log(result);
-        callback(false);
-      }
-  });
+function loginfunction(req, callback) {
+    User.findOne({
+        'userName': req.userName
+    }).select('password passwordSalt').exec(function(err, user) {
+        if (err) return res.status(500).send(err.message);
+        if (user.password) {
+            comparePassword(req.password, user.password, user.passwordSalt, function(result) {
+                if (result) {
+                    console.log(result);
+                    callback(true);
+                } else {
+                    console.log(result);
+                    callback(false);
+                }
+            });
+        } else {
+            console.log(result);
+            callback(false);
+        }
+    });
 }
 
 /**

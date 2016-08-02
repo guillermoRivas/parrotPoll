@@ -30,7 +30,24 @@ angular.module('parrotPollApp', ['ui.router', 'satellizer', 'angular-loading-bar
     })
     .config(function($authProvider) {
         $authProvider.loginUrl = "api/auth/login";
-        $authProvider.signupUrl = "api/auth/signup";
+        $authProvider.signupUrl = "api/auth/singup";
         $authProvider.tokenName = "token";
         $authProvider.tokenPrefix = "parrotPollApp";
     });
+
+angular.module('parrotPollApp').factory('userFactory', function($auth, $http) {
+    var interfaz = {
+        user: undefined,
+        isAuthenticated: function() {
+            return $auth.isAuthenticated();
+        },
+        getUser: function() {
+            if ($auth.isAuthenticated() && !interfaz.user) {
+                $http.get('api/auth/user').then(function(res) {
+                  interfaz.user = res.data;
+                });
+            }
+        }
+    };
+    return interfaz;
+});

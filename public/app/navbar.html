@@ -1,14 +1,39 @@
 <nav class="navbar navbar-default navbar-fixed-top" ng-controller="navBarCtrl">
     <div class="container-fluid">
         <div class="navbar-header">
-            <img class="loro" src="images/parrot.png" alt="loro" />
-            <a class="navbar-brand" href="#">
-                  Parrot Poll</a>
+            <img class="loro" src="images/parrot.png" alt="loro"/>
+            <a class="navbar-brand" href="#/home">
+                Parrot Poll</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
-            <li>
+            <li ng-show="!user">
                 <a href="#/entrar">
-                    <span class="glyphicon glyphicon-user"></span> Mi cuenta</a>
+                    <span class="glyphicon glyphicon-user"></span>
+                    Mi cuenta</a>
+            </li>
+            <li ng-show="user!=undefined" class="dropdown">
+                <a  class="dropdown-toggle" data-toggle="dropdown" role="button">Hola {{user.userName}}
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="#">Action</a>
+                    </li>
+                    <li>
+                        <a href="#">Another action</a>
+                    </li>
+                    <li>
+                        <a href="#">Something else here</a>
+                    </li>
+                    <li role="separator" class="divider"></li>
+                    <li class="dropdown-header">Nav header</li>
+                    <li>
+                        <a href="#">Separated link</a>
+                    </li>
+                    <li>
+                        <a ng-click="logOut()">log out <span class="glyphicon glyphicon-log-out"></span></a>
+                    </li>
+                </ul>
             </li>
         </ul>
     </div>

@@ -1,14 +1,26 @@
+var jwt = require('jwt-simple');
 var mongoose = require('mongoose');
 var crypto = require('crypto');
 var User = mongoose.model('User');
 var service = require('./authService');
+var config = require('./config');
 
-exports.emailSignup = function(req, res) {
-    var user = new User({
-        // Creamos el usuario con los campos
-        // que definamos en el Schema
-        // nombre, email, etc...
+exports.signup = function(req, res) {
+    var user = new User(req.body);
+
+    saltHashPassword(user.password, function(passwordHash, salt) {
+        user.password = passwordHash;
+        user.passwordSalt = salt;
+        user.save(function(err, user) {
+            if (err) return res.status(500).send(err.message);
+            return res
+                .status(200)
+                .send({
+                    token: service.createToken(user)
+                });
+        });
     });
+
 
     user.save(function(err) {
         return res
@@ -19,7 +31,7 @@ exports.emailSignup = function(req, res) {
     });
 };
 
-exports.emailLogin = function(req, res) {
+exports.login = function(req, res) {
     console.log('POST/login');
     console.log(req.body);
 
@@ -41,6 +53,16 @@ exports.emailLogin = function(req, res) {
     });
 };
 
+exports.getActualUser = function(req, res) {
+    var token = req.headers.authorization.split(" ")[1];
+    var payload = jwt.decode(token, config.TOKEN_SECRET);
+    var id = mongoose.Types.ObjectId(payload.sub);
+    User.findById(id, function(err, poll) {
+        if (err) res.send(500, err.message);
+        console.log('GET/userId');
+        res.status(200).json(poll);
+    });
+};
 
 function loginfunction(req, callback) {
     User.findOne({

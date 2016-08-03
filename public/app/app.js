@@ -25,6 +25,17 @@ angular.module('parrotPollApp', ['ui.router', 'satellizer', 'angular-loading-bar
                         templateUrl: "app/login/loginSingup.html"
                     }
                 }
+            })
+            .state('dashboard', {
+                url: "/dashboard",
+                views: {
+                    "nav": {
+                        templateUrl: "app/navbar.html"
+                    },
+                    "contenido": {
+                        templateUrl: "app/dashboard/dashboard_index.html"
+                    }
+                }
             });
         $urlRouterProvider.otherwise("/");
     })

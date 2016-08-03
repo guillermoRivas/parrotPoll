@@ -27,6 +27,22 @@ exports.exixtUserByUserName = function(req, res) {
     });
 };
 
+exports.exixtUserByEmail = function(req, res) {
+    var email = req.params.email;
+    console.log('GET/user/existEmail/' + email);
+    User.find({
+        email: email
+    }).exec(function(err, user) {
+        if (err) res.send(500, err.message);
+        if(user.length > 0){
+            res.status(200).json({result:true});
+        }else {
+            res.status(200).json({result:false});
+        }
+
+    });
+};
+
 exports.addUser = function(req, res) {
     console.log('POST/user');
     console.log(req.body);

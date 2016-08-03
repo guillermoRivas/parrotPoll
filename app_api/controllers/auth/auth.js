@@ -20,15 +20,6 @@ exports.signup = function(req, res) {
                 });
         });
     });
-
-
-    user.save(function(err) {
-        return res
-            .status(200)
-            .send({
-                token: service.createToken(user)
-            });
-    });
 };
 
 exports.login = function(req, res) {
@@ -48,7 +39,7 @@ exports.login = function(req, res) {
                     });
             });
         } else {
-            res.status(200).json(undefined);
+            return res.status(400).send("Bad Request");
         }
     });
 };
@@ -73,15 +64,15 @@ function loginfunction(req, callback) {
             comparePassword(req.password, user.password, user.passwordSalt, function(result) {
                 if (result) {
                     console.log(result);
-                    callback(true);
+                    return callback(true);
                 } else {
                     console.log(result);
-                    callback(false);
+                    return callback(false);
                 }
             });
         } else {
             console.log("usuario no encontrado");
-            callback(false);
+             return callback(false);
         }
     });
 }

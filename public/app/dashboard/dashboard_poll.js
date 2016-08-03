@@ -1,5 +1,5 @@
 angular.module('parrotPollApp')
-    .controller('dashboardPollCtrl', function($scope, $http, $cookies, $location) {
+    .controller('dashboardPollCtrl', function($scope, $http, $location) {
       var usuario = JSON.parse($cookies.get('usuario'));
 
       var question = {text: 'Pregunta ...?', answers : [{text:'Respuesta ...'}] };

@@ -32,8 +32,25 @@ angular.module('parrotPollApp', ['ui.router', 'satellizer', 'angular-loading-bar
                     "nav": {
                         templateUrl: "app/navbar.html"
                     },
+                    "menu": {
+                      templateUrl: "app/dashboard/menu.html"
+                    },
                     "contenido": {
                         templateUrl: "app/dashboard/dashboard_index.html"
+                    }
+                }
+            })
+            .state('perfil', {
+                url: "/dashboard/perfil",
+                views: {
+                    "nav": {
+                        templateUrl: "app/navbar.html"
+                    },
+                    "menu": {
+                      templateUrl: "app/dashboard/menu.html"
+                    },
+                    "contenido": {
+                        templateUrl: "app/dashboard/perfil.html"
                     }
                 }
             });
@@ -55,7 +72,7 @@ angular.module('parrotPollApp').factory('userFactory', function($auth, $http) {
         getUser: function() {
             if ($auth.isAuthenticated() && !interfaz.user) {
                 $http.get('api/auth/user').then(function(res) {
-                  interfaz.user = res.data;
+                    interfaz.user = res.data;
                 });
             }
         }

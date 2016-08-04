@@ -1,0 +1,66 @@
+<div ng-controller="dashboardPollCtrl" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h1 class="page-header">Dashboard Poll</h1>
+    <form role="form" ng-submit="guardar()">
+        <div class="jumbotron text-center contenido">
+            <h1><input type="text" ng-model="poll.name" placeholder="Nombre de la votación"></h1>
+            <p>
+                <textarea ng-model="poll.description" placeholder="Descripcción"></textarea>
+            </p>
+        </div>
+        <div class="container-fluid">
+            <div class="form-group">
+                <label for="owner">Propietario</label>
+                <input disabled type="text" class="form-control" id="owner" ng-model="poll.owner">
+            </div>
+
+            <div class="checkbox">
+                <label><input type="checkbox" ng-model="poll.isPublic">
+                    Pública</label>
+            </div>
+            <div class="checkbox">
+                <label><input type="checkbox" ng-model="poll.resultIsPublic">
+                    Resultados público</label>
+            </div>
+            <div ng-if="!modoEdicion" class="checkbox">
+                <label><input type="checkbox" ng-model="poll.published">
+                    Publicar al guardar</label>
+            </div>
+
+            <div class="row">
+                <div class="panel panel-primary" ng-repeat="question in poll.questions">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" ng-model="question.text" placeholder="Pregunta... ?" required>
+                            </div>
+                            <div class="col-sm-4">
+                                <button ng-if="poll.questions.length>1" type="button" ng-click="deleteQuestion($index)" class="btn btn-default">Eliminar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="container-fluid">
+                            <div ng-repeat="answer in question.answers" style="margin: 10px">
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" ng-model="answer.text" placeholder="Respuesta..." required>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <button ng-if="question.answers.length>1" type="button" ng-click="deleteAnswer(question, $index)" class="btn btn-default">Eliminar</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <button ng-if="question.answers.length < 10" type="button" ng-click="newAnswer(question)" class="btn btn-default" style="display: block; width: 100%;">new ansquer</button>
+                        </div>
+                    </div>
+                </div>
+                <button ng-if="poll.questions.length < 50" type="button" ng-click="newQuestion()" class="btn btn-default" style="display: block; width: 100%;">Nueva pregunta</button>
+            </div>
+            <input type="submit" class="btn" value="Guardar">
+        </form>
+        <div ng-if="mensajeError" class="alert alert-danger">
+            <strong>Danger!</strong>
+            {{mensajeError}}
+        </div>
+    </div>
+</div>

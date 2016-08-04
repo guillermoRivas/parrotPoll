@@ -53,6 +53,20 @@ angular.module('parrotPollApp', ['ui.router', 'satellizer', 'angular-loading-bar
                         templateUrl: "app/dashboard/perfil.html"
                     }
                 }
+            })
+            .state('createEditPoll', {
+                url: "/dashboard/poll?pollId",
+                views: {
+                    "nav": {
+                        templateUrl: "app/navbar.html"
+                    },
+                    "menu": {
+                      templateUrl: "app/dashboard/menu.html"
+                    },
+                    "contenido": {
+                        templateUrl: "app/dashboard/poll.html"
+                    }
+                }
             });
         $urlRouterProvider.otherwise("/");
     })

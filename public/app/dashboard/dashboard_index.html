@@ -33,18 +33,20 @@
                     <tr>
                         <th>#</th>
                         <th>Nombre</th>
-                        <th>Header</th>
-                        <th>Header</th>
-                        <th>Header</th>
+                        <th>Es publica</th>
+                        <th>Ver enlace</th>
+                        <th>Editar</th>
+                        <th>Publicar</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="poll in polls">
                         <td>{{$index + 1}}</td>
                         <td>{{poll.name}}</td>
-                        <td>--</td>
-                        <td>--</td>
-                        <td>--</td>
+                        <td>{{poll.isPublic}}</td>
+                        <td><button type="button" ng-click="verEnlacePoll(poll)">ver</button></td>
+                        <td><a ui-sref="createEditPoll({pollId:poll._id})" class="btn btn-default"> ok</a></td>
+                        <td><button ng-if="!poll.published" ng-click="publicar(poll)" type="button">ok</button></td>
                     </tr>
                 </tbody>
             </table>

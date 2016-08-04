@@ -69,9 +69,11 @@ exports.updatePoll = function(req, res) {
     console.log('PUT/poll');
     console.log(req.body);
     var poll = new Poll(req.body);
+    var id = mongoose.Types.ObjectId(req.body._id);
+    delete req.body['_id'];
 
-    poll.save(function(err, poll) {
-        if (err) return res.status(500).send(err.message);
-        res.status(200).json(poll);
+    Poll.findOneAndUpdate({'_id':id},req.body,{upsert:true},function(err, upoll) {
+      if (err) return res.status(500).send(err.message);
+      res.status(200).json(upoll);
     });
 };

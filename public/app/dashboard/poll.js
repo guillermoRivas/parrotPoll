@@ -79,7 +79,7 @@ angular.module('parrotPollApp')
         }
 
         function editar() {
-          var post = $http.put('api/poll', $scope.poll).then(
+          $http.put('api/poll', $scope.poll).then(
               function(res) {
                   // success callback
                   //$scope.poll = res.data;

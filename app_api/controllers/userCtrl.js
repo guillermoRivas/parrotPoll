@@ -18,10 +18,14 @@ exports.exixtUserByUserName = function(req, res) {
         userName: userName
     }).exec(function(err, user) {
         if (err) res.send(500, err.message);
-        if(user.length > 0){
-            res.status(200).json({result:true});
-        }else {
-            res.status(200).json({result:false});
+        if (user.length > 0) {
+            res.status(200).json({
+                result: true
+            });
+        } else {
+            res.status(200).json({
+                result: false
+            });
         }
 
     });
@@ -34,10 +38,14 @@ exports.exixtUserByEmail = function(req, res) {
         email: email
     }).exec(function(err, user) {
         if (err) res.send(500, err.message);
-        if(user.length > 0){
-            res.status(200).json({result:true});
-        }else {
-            res.status(200).json({result:false});
+        if (user.length > 0) {
+            res.status(200).json({
+                result: true
+            });
+        } else {
+            res.status(200).json({
+                result: false
+            });
         }
 
     });
@@ -54,6 +62,23 @@ exports.addUser = function(req, res) {
             if (err) return res.status(500).send(err.message);
             res.status(200).json(user);
         });
+    });
+};
+
+exports.updateUser = function(req, res) {
+    console.log('PUT/user');
+    console.log(req.body);
+    var user = new User(req.body);
+    var id = mongoose.Types.ObjectId(req.body._id);
+    delete req.body['_id'];
+
+    User.findOneAndUpdate({
+        '_id': id
+    }, req.body, {
+        upsert: true
+    }, function(err, us) {
+        if (err) return res.status(500).send(err.message);
+        res.status(200).json(us);
     });
 };
 

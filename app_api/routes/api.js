@@ -19,6 +19,7 @@ router
     .get('/user/exist/:userName', UserCtrl.exixtUserByUserName)
     .get('/user/existEmail/:email', UserCtrl.exixtUserByEmail)
     .post('/user', UserCtrl.addUser)
+    .put('/user', UserCtrl.updateUser)
     .post('/user/log', UserCtrl.login);
 
 router

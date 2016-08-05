@@ -22,6 +22,15 @@ var uerSchema = new Schema({
         required: true,
         select: false
     },
+    firstName: String,
+    lastName: String,
+    age: Number,
+    interests: String,
+    sex: String,
+    country: String,
+    region: String,
+    town: String,
+    zipCode: String,
     creationDate: Date,
     updatedDate: Date
 });

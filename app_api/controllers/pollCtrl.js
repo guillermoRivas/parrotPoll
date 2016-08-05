@@ -20,7 +20,8 @@ exports.findAllPoll = function(req, res) {
 
     Poll
         .find({
-            isPublic: true
+            isPublic: true,
+            published: true
         })
         .limit(skip)
         .skip((skip * pag))

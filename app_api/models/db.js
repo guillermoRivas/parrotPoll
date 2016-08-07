@@ -50,3 +50,4 @@ process.on('SIGTERM', function() {
 require('./poll');
 require('./user');
 require('./pollResult');
+require('./invitation');

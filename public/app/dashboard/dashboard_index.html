@@ -37,6 +37,7 @@
                         <th>Ver enlace</th>
                         <th>Editar</th>
                         <th>Publicar</th>
+                        <th>Invitar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,13 +45,63 @@
                         <td>{{$index + 1}}</td>
                         <td>{{poll.name}}</td>
                         <td>{{poll.isPublic}}</td>
-                        <td><button type="button" ng-click="verEnlacePoll(poll)">ver</button></td>
-                        <td><a ui-sref="createEditPoll({pollId:poll._id})" class="btn btn-default"> ok</a></td>
-                        <td><button ng-if="!poll.published" ng-click="publicar(poll)" type="button">ok</button></td>
+                        <td>
+                            <button type="button" ng-click="verEnlacePoll(poll)">ver</button>
+                        </td>
+                        <td>
+                            <a ui-sref="createEditPoll({pollId:poll._id})" class="btn btn-default">
+                                ok</a>
+                        </td>
+                        <td>
+                            <button ng-if="!poll.published" ng-click="publicar(poll)" type="button">ok</button>
+                        </td>
+                        <td>
+                            <button ng-if="poll.published" ng-click="selectPoll(poll)" type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">invitar</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
 
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="input-group c-search">
+                                    <input ng-model="strUsuarioBuscar" ng-change="buscarUsuario()" type="text" class="form-control" placeholder="nombre de usuario...">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button">
+                                            <span class="glyphicon glyphicon-search text-muted"></span>
+                                        </button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                              <ul class="list-group">
+                                <li class="list-group-item" ng-repeat="usuario in listaBusqueda">
+                                    {{usuario.userName}}
+                                    <button ng-click="invitar(usuario)" type="button" class="btn btn-default">ok</button>
+                                </li>
+                              </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>

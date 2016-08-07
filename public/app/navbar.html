@@ -12,7 +12,8 @@
                     Mi cuenta</a>
             </li>
             <li ng-show="user!=undefined" class="dropdown">
-                <a  class="dropdown-toggle" data-toggle="dropdown" role="button">Hola {{user.userName}}
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button">Hola
+                    {{user.userName}}
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
@@ -21,7 +22,26 @@
                     </li>
                     <li role="separator" class="divider"></li>
                     <li>
-                        <a ng-click="logOut()">log out <span class="glyphicon glyphicon-log-out"></span></a>
+                        <a ng-click="logOut()">log out
+                            <span class="glyphicon glyphicon-log-out"></span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li ng-show="user!=undefined" class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button">invitaciones
+                    {{invitaciones.length}}
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="invitacion in invitaciones">
+                        <div class="container">
+                            <span>{{invitacion.pollText}}
+                                por
+                                {{invitacion.fromName}}</span>
+                            <button type="button" class="btn btn-default" ui-sref="pollResult({pollId:invitacion.pollRef, inv:invitacion._id})">ok</button>
+                            <button type="button" class="btn btn-danger" ng-click="rechazarInvitacion(invitacion, $index)">no</button>
+                        </div>
                     </li>
                 </ul>
             </li>

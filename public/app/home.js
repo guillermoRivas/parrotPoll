@@ -26,7 +26,7 @@ angular.module('parrotPollApp')
         };
 
         $scope.redirectPoll = function(poll) {
-            $location.path('/poll/' + poll._id);
+            $location.path('#/poll?pollId='+poll._id);
         };
 
         pedirPagina();

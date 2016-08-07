@@ -11,6 +11,17 @@ exports.findAllUsers = function(req, res) {
     });
 };
 
+exports.findByUsersNameRegex = function(req, res) {
+  var name = req.params.name;
+    User.find({
+      userName: {"$regex": name,"$options":"i"}
+    },{userName:1},function(err, users) {
+        if (err) res.send(500, err.message);
+        console.log('GET/users');
+        res.status(200).json(users);
+    });
+};
+
 exports.exixtUserByUserName = function(req, res) {
     var userName = req.params.userName;
     console.log('GET/user/exist/' + userName);

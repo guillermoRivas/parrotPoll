@@ -1,6 +1,29 @@
 var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 
+var uerResultSchema = new Schema({
+    _id: Schema.Types.ObjectId,
+    userName: {
+        type: String,
+        require: true,
+        unique: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    firstName: String,
+    lastName: String,
+    age: Number,
+    interests: String,
+    sex: String,
+    country: String,
+    region: String,
+    town: String,
+    zipCode: String
+});
+
 var answerResultSchema = new Schema({
   text: {
     type: String,
@@ -39,6 +62,8 @@ var pollResultSchema = new Schema({
     default: true
   },
   questions: [questionResultSchema],
+  ipResult : String,
+  userResult : uerResultSchema,
   creationDate: Date,
   updatedDate: Date
 });

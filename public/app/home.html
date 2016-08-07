@@ -6,7 +6,7 @@
     <div ng-controller="indexCtrl" class="container contenido">
         <div class="row">
             <div ng-repeat="poll in polls" class="col-sm-4">
-                <div ng-click="redirectPoll(poll)" class="poll-item" ng-class-odd="'odd-item'" ng-class-even="'even-item'">
+                <div ui-sref="pollResult({pollId:poll._id})" class="poll-item" ng-class-odd="'odd-item'" ng-class-even="'even-item'">
                     <h3>{{poll.name}}</h3>
                     <p>{{poll.description}}</p>
                     <p>{{poll.creationDate}}</p>

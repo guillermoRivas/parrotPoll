@@ -26,6 +26,17 @@ angular.module('parrotPollApp', ['ui.router', 'satellizer', 'angular-loading-bar
                     }
                 }
             })
+            .state('pollResult', {
+                url: "/poll?pollId&inv",
+                views: {
+                    "nav": {
+                        templateUrl: "app/navbar.html"
+                    },
+                    "contenido": {
+                        templateUrl: "app/poll/poll.html"
+                    }
+                }
+            })
             .state('dashboard', {
                 url: "/dashboard",
                 views: {

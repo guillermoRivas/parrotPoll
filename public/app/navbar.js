@@ -1,18 +1,33 @@
 angular.module('parrotPollApp')
     .controller('navBarCtrl', function($scope, $location, $http, $auth, userFactory) {
         //$scope.currentPath = $location.path();
-        if ($auth.isAuthenticated()){
+        $scope.invitaciones = [];
+        if ($auth.isAuthenticated()) {
             $http.get('api/auth/user').then(function(res) {
                 $scope.user = res.data;
-            });
-          }else{
-            $scope.user = undefined;
-          }
+                cargarInvitaciones($scope.user._id);
 
-          $scope.logOut = function(){
+            });
+        } else {
+            $scope.user = undefined;
+        }
+
+        $scope.logOut = function() {
             $auth.logout();
             $scope.user = undefined;
             $location.path('#/home');
-          };
+        };
+
+        function cargarInvitaciones(idUser) {
+            $http.get('api/invitation/'+idUser).then(function(res) {
+                $scope.invitaciones = res.data;
+            });
+        }
+
+        $scope.rechazarInvitacion =function (invitacion, index) {
+          $http.delete('api/invitation/'+invitacion._id).then(function(res) {
+              $scope.invitaciones.splice(index,1);
+          });
+        };
 
     });

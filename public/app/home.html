@@ -3,14 +3,20 @@
         <h1>Parrot poll</h1>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
     </div>
-    <div ng-controller="indexCtrl" class="container contenido">
+    <div ng-controller="indexCtrl" class="container-fluid">
         <div class="row">
             <div ng-repeat="poll in polls" class="col-sm-4">
-                <div ui-sref="pollResult({pollId:poll._id})" class="poll-item" ng-class-odd="'odd-item'" ng-class-even="'even-item'">
+              <div class="col-sm-6">
+                <img src="images/interrogarion_green.jpg" alt="interrogacion" />
+              </div>
+              <div class="col-sm-6">
+                <div ui-sref="pollResult({pollId:poll._id})" class="poll-item">
                     <h3>{{poll.name}}</h3>
                     <p>{{poll.description}}</p>
                     <p>{{poll.creationDate}}</p>
                 </div>
+              </div>
+
             </div>
         </div>
         <button style="display: block; width: 100%;" ng-show="paginaActual<maxPaginas" ng-click="siguientePagina()">button</button>

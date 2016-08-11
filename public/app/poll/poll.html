@@ -4,8 +4,8 @@
         <p>{{poll.description}}</p>
     </div>
     <div class="container">
-        <div class="row" ng-show="!mensajeFinal || !resultados">
-            <div class="panel panel-primary" ng-repeat="question in poll.questions">
+        <div class="row">
+            <div ng-show="!ocultarPreguntas" class="panel panel-primary" ng-repeat="question in poll.questions">
                 <div class="panel-heading">¿¿
                     {{question.text}}
                     ??</div>
@@ -30,10 +30,26 @@
                     {{mensajeFinal}}
                 </div>
             </div>
+            <div ng-show="mensajeError">
+              <div class="alert alert-warning">
+                  <strong>Success!</strong>
+                  {{mensajeError}}
+              </div>
+            </div>
             <div ng-show="resultados">
-                {{resultados}}
+                <div ng-repeat="resultado in resultados">
+                    <h3>{{resultado._id}}</h3>
+                    <h4>han contestado un total de {{totalResultados}} personas</h4>
+                    <div ng-repeat="pregunta in resultado.answers" class="progress" style="height:50px">
+                        <div class="progress-bar progress-bar-info" role="progressbar" style="width:{{(pregunta.total*100)/totalResultados}}%">
+                            <h4>
+                                {{pregunta.answer}} {{(pregunta.total*100)/totalResultados}}%
+                            </h4>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <button type="button" ng-click="guardar()" class="btn btn-default" style="display: block; width: 100%;">guardar</button>
+        <button ng-show="!resultados" type="button" ng-click="guardar()" class="btn btn-default" style="display: block; width: 100%;">guardar</button>
     </div>
 </div>

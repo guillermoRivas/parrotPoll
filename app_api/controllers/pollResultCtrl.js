@@ -61,3 +61,13 @@ exports.getResultsPoll = function(req, res) {
         res.status(200).json(result);
     });
 };
+
+exports.countResutlsPoll = function(req, res) {
+  var id = mongoose.Types.ObjectId(req.params.id);
+    console.log('GET/ResultsPoll/count');
+
+    PollResult.count({referencePoll: id}, function(err,count) {
+      if (err) res.send(500, err.message);
+      res.status(200).json(count);
+    });
+};

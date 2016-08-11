@@ -1,16 +1,20 @@
 <div ng-controller="dashboardPollCtrl" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <h1 class="page-header">Dashboard Poll</h1>
+    <h1 class="page-header">Crea una votación</h1>
     <form role="form" ng-submit="guardar()">
-        <div class="jumbotron text-center contenido">
-            <h1><input type="text" ng-model="poll.name" placeholder="Nombre de la votación"></h1>
-            <p>
-                <textarea ng-model="poll.description" placeholder="Descripcción"></textarea>
-            </p>
+        <div class="jumbotron text-center">
+            <div class="row">
+              <div class="form-group">
+                <h1><input class="col-md-12" type="text" ng-model="poll.name" placeholder="Nombre de la votación"></h1>
+              </div>
+              <div class="form-group" style="margin-top:110px">
+                <textarea class="col-md-12" ng-model="poll.description" placeholder="Descripcción de la votación"></textarea>
+              </div>
+            </div>
         </div>
         <div class="container-fluid">
             <div class="form-group">
                 <label for="owner">Propietario</label>
-                <input disabled type="text" class="form-control" id="owner" ng-model="poll.owner">
+                <input disabled type="text" class="form-control" id="owner" ng-model="poll.ownerName">
             </div>
 
             <div class="checkbox">
@@ -23,7 +27,7 @@
             </div>
             <div ng-if="!modoEdicion" class="checkbox">
                 <label><input type="checkbox" ng-model="poll.published">
-                    Publicar al guardar</label>
+                    Guardar como borrador</label>
             </div>
 
             <div class="row">
@@ -34,7 +38,7 @@
                                 <input type="text" class="form-control" ng-model="question.text" placeholder="Pregunta... ?" required>
                             </div>
                             <div class="col-sm-4">
-                                <button ng-if="poll.questions.length>1" type="button" ng-click="deleteQuestion($index)" class="btn btn-default">Eliminar</button>
+                                <button ng-if="poll.questions.length>1" type="button" ng-click="deleteQuestion($index)" class="btn btn-danger">Eliminar</button>
                             </div>
                         </div>
                     </div>
@@ -46,7 +50,7 @@
                                         <input type="text" class="form-control" ng-model="answer.text" placeholder="Respuesta..." required>
                                     </div>
                                     <div class="col-sm-4">
-                                        <button ng-if="question.answers.length>1" type="button" ng-click="deleteAnswer(question, $index)" class="btn btn-default">Eliminar</button>
+                                        <button ng-if="question.answers.length>1" type="button" ng-click="deleteAnswer(question, $index)" class="btn btn-danger">Eliminar</button>
                                     </div>
                                 </div>
                             </div>
@@ -56,11 +60,15 @@
                 </div>
                 <button ng-if="poll.questions.length < 50" type="button" ng-click="newQuestion()" class="btn btn-default" style="display: block; width: 100%;">Nueva pregunta</button>
             </div>
-            <input type="submit" class="btn" value="Guardar">
+            <input type="submit" class="btn btn-success" style="margin-top:10px" value="Guardar">
         </form>
         <div ng-if="mensajeError" class="alert alert-danger">
             <strong>Danger!</strong>
             {{mensajeError}}
+        </div>
+        <div ng-if="mensajeExito" class="alert alert-success">
+            <strong>Danger!</strong>
+            {{mensajeExito}}
         </div>
     </div>
 </div>

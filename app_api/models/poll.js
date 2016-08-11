@@ -23,6 +23,7 @@ var pollSchema = new Schema({
   },
   description: String,
   owner: [{type:Schema.Types.ObjectId}],
+  ownerName: String,
   isPublic: {
     type: Boolean,
     default: true
@@ -34,6 +35,10 @@ var pollSchema = new Schema({
   published:{
     type:Boolean,
     default: true,
+  },
+  isDeleted:{
+    type:Boolean,
+    default: false
   },
   questions: [questionSchema],
   creationDate: Date,

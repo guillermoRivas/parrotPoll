@@ -13,7 +13,8 @@ router
     .get('/poll/:id', PollCtrl.findByIdPoll)
     .get('/poll/owner/:idOwner', PollCtrl.findByOwnerPolls)
     .post('/poll', PollCtrl.addPoll)
-    .put('/poll', PollCtrl.updatePoll);
+    .put('/poll', PollCtrl.updatePoll)
+    .delete('/poll/:id', PollCtrl.deletePoll);
 
 router
     .get('/user', UserCtrl.findAllUsers)
@@ -26,6 +27,7 @@ router
 
 router
     .get('/pollResults/:id', PollResultCtrl.getResultsPoll)
+    .get('/pollResultsCount/:id', PollResultCtrl.countResutlsPoll)
     .post('/pollResult', PollResultCtrl.addPollResult);
 
 

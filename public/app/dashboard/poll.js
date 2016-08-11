@@ -28,6 +28,7 @@ angular.module('parrotPollApp')
             $http.get('api/auth/user').then(function(res) {
                 $scope.usuario = res.data;
                 $scope.poll.owner = [$scope.usuario._id];
+                $scope.poll.ownerName = $scope.usuario.userName;
             });
 
             $scope.poll.isPublic = true;
@@ -67,6 +68,7 @@ angular.module('parrotPollApp')
         };
 
         function guardar() {
+          $scope.poll.published = !$scope.poll.published; 
           var post = $http.post('api/poll', $scope.poll).then(
               function(res) {
                   // success callback

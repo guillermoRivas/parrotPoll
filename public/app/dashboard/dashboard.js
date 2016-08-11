@@ -1,5 +1,5 @@
 angular.module('parrotPollApp')
-    .controller('dashboardCtrl', function($scope, $http) {
+    .controller('dashboardCtrl', function($scope, $http, $location) {
 
         $http.get('api/auth/user').then(function(res) {
             $scope.usuario = res.data;
@@ -11,7 +11,9 @@ angular.module('parrotPollApp')
         });
 
         $scope.verEnlacePoll = function(poll) {
-            alert("#/poll?pollId=" + poll._id);
+            var enlace = $location.absUrl();
+            enlace = enlace.replace("dashboard", "poll?pollId=");
+            $scope.enlace = enlace + poll._id;
         };
 
         $scope.publicar = function(poll) {
@@ -42,6 +44,14 @@ angular.module('parrotPollApp')
             }
         };
 
+        $scope.borrarPoll = function(poll, index) {
+            $http.delete("api/poll/" + poll._id).then(function(res) {
+                $scope.polls.splice(index, 1);
+            }, function(res) {
+                // acciones a realizar cuando se recibe una respuesta de error
+            });
+        };
+
         $scope.invitar = function(userFor) {
             var invitacion = {
                 forRef: userFor._id,
@@ -61,4 +71,15 @@ angular.module('parrotPollApp')
             );
         };
 
+        $scope.cambiarEstadoPoll = function(poll) {
+            poll.isPublic = !poll.isPublic;
+            $http.put('api/poll', poll).then(
+                function(res) {
+
+                },
+                function(response) {
+                    // error
+                }
+            );
+        };
     });

@@ -3,7 +3,7 @@ var Poll = mongoose.model('Poll');
 
 exports.countPolls = function(req, res) {
     console.log('GET/polls/count');
-    Poll.count({isPublic: true}, function(err,count) {
+    Poll.count({isPublic: true,isDeleted: false}, function(err,count) {
       if (err) res.send(500, err.message);
       res.status(200).json(count);
     });
@@ -21,7 +21,8 @@ exports.findAllPoll = function(req, res) {
     Poll
         .find({
             isPublic: true,
-            published: true
+            published: true,
+            isDeleted: false
         })
         .limit(skip)
         .skip((skip * pag))
@@ -47,7 +48,8 @@ exports.findByOwnerPolls = function(req, res) {
     console.log('GET/pollsOwners/' + owner);
     Poll.
     find({
-            owner: owner
+            owner: owner,
+            isDeleted: false
         })
         .exec(function(err, polls) {
             if (err) res.send(500, err.message);
@@ -77,4 +79,17 @@ exports.updatePoll = function(req, res) {
       if (err) return res.status(500).send(err.message);
       res.status(200).json(upoll);
     });
+};
+
+exports.deletePoll = function(req, res) {
+  var id = mongoose.Types.ObjectId(req.params.id);
+  console.log("Delete/Pol" + id);
+  Poll.findByIdAndUpdate(id,
+    {
+      $set: {isDeleted:true}
+    },
+    function(err, p) {
+      if (err) return res.status(500).send(err.message);
+      res.status(200).json(p);
+  });
 };

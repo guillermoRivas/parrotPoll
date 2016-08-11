@@ -3,18 +3,6 @@ var Schema   = mongoose.Schema;
 
 var uerResultSchema = new Schema({
     _id: Schema.Types.ObjectId,
-    userName: {
-        type: String,
-        require: true,
-        unique: true
-    },
-    email: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    firstName: String,
-    lastName: String,
     age: Number,
     interests: String,
     sex: String,

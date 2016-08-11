@@ -1,5 +1,6 @@
 angular.module('parrotPollApp')
     .controller('pollCtrl', function($scope, $http, $location, $stateParams) {
+        $scope.ocultarPreguntas = false;
         var id = $stateParams.pollId;
         var inv = $stateParams.inv;
         var showResult = false;
@@ -25,12 +26,16 @@ angular.module('parrotPollApp')
 
 
         $scope.guardar = function functionName(answer) {
-
+            if (!validar()) {
+                $scope.mensajeError = "contesta todas las preguntas";
+                return -1;
+            }
             $http.get('api/auth/user').then(function(res) {
                 $scope.poll.userResult = res.data;
                 $http.post('api/pollResult', $scope.poll).then(
                     function(res) {
-                      if(inv) eliminarInvitacion();
+                        $scope.ocultarPreguntas = true;
+                        if (inv) eliminarInvitacion();
                         if (showResult)
                             mostrarResultado();
                         else
@@ -43,6 +48,7 @@ angular.module('parrotPollApp')
             }, function() {
                 $http.post('api/pollResult', $scope.poll).then(
                     function(res) {
+                        $scope.ocultarPreguntas = true;
                         if (showResult)
                             mostrarResultado();
                         else
@@ -60,17 +66,36 @@ angular.module('parrotPollApp')
         }
 
         function mostrarResultado() {
-            $http.get('api/pollResults/'+$scope.poll.referencePoll).then(
+
+            $http.get('api/pollResultsCount/' + $scope.poll.referencePoll).then(
                 function(res) {
-                    $scope.resultados = res.data;
+                    $scope.totalResultados = res.data;
+                    $http.get('api/pollResults/' + $scope.poll.referencePoll).then(
+                        function(res) {
+                            $scope.resultados = res.data;
+                        },
+                        function(response) {
+                            //error en servidor
+                        });
                 },
                 function(response) {
                     //error en servidor
                 });
         }
 
-        function  eliminarInvitacion(){
-          $http.delete('api/invitation/'+inv).then(function(res) {
-          });
+        function validar() {
+            var result = true;
+            $scope.poll.questions.forEach(function(element, index) {
+                var r = false;
+                element.answers.forEach(function(item, i) {
+                    r = r || item.selected || (item.selected !== undefined);
+                });
+                if (!r) result = false;
+            });
+            return result;
+        }
+
+        function eliminarInvitacion() {
+            $http.delete('api/invitation/' + inv).then(function(res) {});
         }
     });

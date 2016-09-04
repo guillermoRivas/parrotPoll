@@ -1,0 +1,22 @@
+<div ng-controller="resultadosCtrl">
+    <div class="jumbotron text-center contenido">
+        <h1>{{poll.name}}</h1>
+        <p>{{poll.description}}</p>
+    </div>
+    <div class="container">
+        <h4>Han contestado un total de
+            {{totalResultados}}
+            personas</h4>
+        <div ng-repeat="resultado in resultados">
+            <h3>{{resultado._id}}</h3>
+            <div ng-repeat="pregunta in resultado.answers" class="progress" style="height:50px">
+                <div class="progress-bar progress-bar-info" role="progressbar" style="width:{{(pregunta.total*100)/totalResultados}}%">
+                    <h4>
+                        {{pregunta.answer}}
+                        {{(pregunta.total*100)/totalResultados}}%
+                    </h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -31,19 +31,22 @@
                 </div>
             </div>
             <div ng-show="mensajeError">
-              <div class="alert alert-warning">
-                  <strong>Success!</strong>
-                  {{mensajeError}}
-              </div>
+                <div class="alert alert-warning">
+                    <strong>Success!</strong>
+                    {{mensajeError}}
+                </div>
             </div>
             <div ng-show="resultados">
+                <h4>Han contestado un total de
+                    {{totalResultados}}
+                    personas</h4>
                 <div ng-repeat="resultado in resultados">
                     <h3>{{resultado._id}}</h3>
-                    <h4>han contestado un total de {{totalResultados}} personas</h4>
                     <div ng-repeat="pregunta in resultado.answers" class="progress" style="height:50px">
                         <div class="progress-bar progress-bar-info" role="progressbar" style="width:{{(pregunta.total*100)/totalResultados}}%">
                             <h4>
-                                {{pregunta.answer}} {{(pregunta.total*100)/totalResultados}}%
+                                {{pregunta.answer}}
+                                {{(pregunta.total*100)/totalResultados}}%
                             </h4>
                         </div>
                     </div>

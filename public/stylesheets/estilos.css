@@ -39,6 +39,9 @@ body {
 .seleccionada {
     background-color: LightGreen;
 }
+.poll:hover{
+  background-color: tomato;
+}
 /*
 * Base structure
 */

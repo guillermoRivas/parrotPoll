@@ -14,7 +14,8 @@ router
     .get('/poll/owner/:idOwner', PollCtrl.findByOwnerPolls)
     .post('/poll', PollCtrl.addPoll)
     .put('/poll', PollCtrl.updatePoll)
-    .delete('/poll/:id', PollCtrl.deletePoll);
+    .delete('/poll/:id', PollCtrl.deletePoll)
+    .get('/repPollResults/:id', PollCtrl.getRepPollResults);
 
 router
     .get('/user', UserCtrl.findAllUsers)

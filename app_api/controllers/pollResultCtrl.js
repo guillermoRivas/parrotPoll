@@ -5,7 +5,7 @@ exports.addPollResult = function(req, res) {
     console.log('POST/resultPoll');
     console.log(req.body);
     var pollResult = new PollResult(req.body);
-    pollResult.ipResult = req.connection.remoteAddress;
+
     pollResult.save(function(err, pollr) {
         if (err) return res.status(500).send(err.message);
         res.status(200).json(pollr);
@@ -69,5 +69,26 @@ exports.countResutlsPoll = function(req, res) {
     PollResult.count({referencePoll: id}, function(err,count) {
       if (err) res.send(500, err.message);
       res.status(200).json(count);
+    });
+};
+
+exports.getRepPollResultsCountry = function(req, res) {
+    var id = mongoose.Types.ObjectId(req.params.id);
+    console.log('GET/pollResult/getRepPollResultsCountry');
+
+    PollResult.aggregate([
+      {
+        $match: { referencePoll: id }
+    },
+      {$group :
+          {_id: "$locationResult.country",
+          nResults:{ $sum: 1 }
+          }
+          },
+    { $sort : { nresults : -1} },
+    { $limit: 10 }
+  ]).exec(function(err, result) {
+        if (err) return res.status(500).send(err.message);
+        res.status(200).json(result);
     });
 };

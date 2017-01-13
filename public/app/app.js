@@ -1,4 +1,4 @@
-angular.module('parrotPollApp', ['ui.router', 'satellizer', 'angular-loading-bar', 'ngMessages'])
+angular.module('parrotPollApp', ['ui.router', 'satellizer', 'angular-loading-bar', 'ngMessages','chart.js'])
     .config(function($stateProvider, $urlRouterProvider) {
         $stateProvider
             .state('index', {

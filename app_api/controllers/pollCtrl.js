@@ -93,3 +93,31 @@ exports.deletePoll = function(req, res) {
       res.status(200).json(p);
   });
 };
+
+exports.getRepPollResults = function(req, res) {
+    var id = mongoose.Types.ObjectId(req.params.id);
+    console.log('GET/poll/getRepPollResults');
+
+    Poll.aggregate([
+      {
+        $match: { owner: id }
+    },
+    {
+      $lookup:
+        {
+          from: "pollresults",
+          localField: "_id",
+          foreignField: "referencePoll",
+          as: "results"
+        }
+   },
+      {
+        $project : { _id : 1 , name : 1, nresults: { $size: "$results" } }
+    },
+    { $sort : { nresults : -1} },
+    { $limit: 10 }
+  ]).exec(function(err, result) {
+        if (err) return res.status(500).send(err.message);
+        res.status(200).json(result);
+    });
+};

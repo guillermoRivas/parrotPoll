@@ -14,9 +14,15 @@ angular.module('parrotPollApp')
         }, function(res) {
             // acciones a realizar cuando se recibe una respuesta de error
         });
-
-
-
+        $.get("http://ipinfo.io", function(response) {
+          var loc = {
+            ip: response.ip,
+            country: response.country,
+            region: response.region,
+            city: response.city
+          };
+          $scope.location = loc;
+        }, "jsonp");
         $scope.seleccionar = function functionName(questions, answer) {
             questions.answers.forEach(function(item) {
                 item.selected = false;
@@ -30,6 +36,7 @@ angular.module('parrotPollApp')
                 $scope.mensajeError = "contesta todas las preguntas";
                 return -1;
             }
+            $scope.poll.locationResult = $scope.location;
             $http.get('api/auth/user').then(function(res) {
                 $scope.poll.userResult = res.data;
                 $http.post('api/pollResult', $scope.poll).then(

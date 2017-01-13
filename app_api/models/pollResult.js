@@ -31,6 +31,13 @@ var questionResultSchema = new Schema({
   answers: [answerResultSchema]
 });
 
+var locationResultSchema = new Schema({
+  ip: String,
+  country: String,
+  region: String,
+  city: String
+});
+
 var pollResultSchema = new Schema({
   referencePoll:{
     type: Schema.Types.ObjectId,
@@ -52,6 +59,7 @@ var pollResultSchema = new Schema({
   questions: [questionResultSchema],
   ipResult : String,
   userResult : uerResultSchema,
+  locationResult : locationResultSchema,
   creationDate: Date,
   updatedDate: Date
 });

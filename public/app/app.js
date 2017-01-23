@@ -99,19 +99,19 @@ angular.module('parrotPollApp', ['ui.router', 'satellizer', 'angular-loading-bar
         $authProvider.tokenPrefix = "parrotPollApp";
     });
 
-angular.module('parrotPollApp').factory('userFactory', function($auth, $http) {
-    var interfaz = {
-        user: undefined,
-        isAuthenticated: function() {
-            return $auth.isAuthenticated();
-        },
-        getUser: function() {
-            if ($auth.isAuthenticated() && !interfaz.user) {
-                $http.get('api/auth/user').then(function(res) {
-                    interfaz.user = res.data;
-                });
+    angular.module('parrotPollApp').factory('userFactory', function($auth, $http) {
+        var interfaz = {
+            user: undefined,
+            isAuthenticated: function() {
+                return $auth.isAuthenticated();
+            },
+            getUser: function() {
+                if ($auth.isAuthenticated() && !interfaz.user) {
+                    $http.get('api/auth/user').then(function(res) {
+                        interfaz.user = res.data;
+                    });
+                }
             }
-        }
-    };
-    return interfaz;
-});
+        };
+        return interfaz;
+    });

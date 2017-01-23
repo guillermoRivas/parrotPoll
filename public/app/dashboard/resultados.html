@@ -1,7 +1,7 @@
-<div class="container" ng-controller="resultadosCtrl">
+<div class="container" ng-controller="resultadosCtrl as resultadosVM">
     <div class="jumbotron text-center contenido">
-        <h1>{{poll.name}}</h1>
-        <p>{{poll.description}}</p>
+        <h1>{{resultadosVM.poll.name}}</h1>
+        <p>{{resultadosVM.poll.description}}</p>
     </div>
     <div class="row">
         <div class="col-md-6">
@@ -41,15 +41,15 @@
     </div>
     <div class="row">
         <h4>Han contestado un total de
-            {{totalResultados}}
+            {{resultadosVM.totalResultados}}
             personas</h4>
-        <div ng-repeat="resultado in resultados">
+        <div ng-repeat="resultado in resultadosVM.resultados">
             <h3>{{resultado._id}}</h3>
-            <div ng-repeat="pregunta in resultado.answers" class="progress" style="height:50px">
-                <div class="progress-bar progress-bar-info" role="progressbar" style="width:{{(pregunta.total*100)/totalResultados}}%">
+            <div ng-repeat="pregunta in resultadosVM.resultado.answers" class="progress" style="height:50px">
+                <div class="progress-bar progress-bar-info" role="progressbar" style="width:{{(pregunta.total*100)/resultadosVM.totalResultados}}%">
                     <h4>
                         {{pregunta.answer}}
-                        {{(pregunta.total*100)/totalResultados}}%
+                        {{(pregunta.total*100)/resultadosVM.totalResultados}}%
                     </h4>
                 </div>
             </div>

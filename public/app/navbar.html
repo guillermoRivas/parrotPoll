@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top" ng-controller="navBarCtrl">
+<nav class="navbar navbar-default navbar-fixed-top" ng-controller="navBarCtrl as navBarVM">
     <div class="container-fluid">
         <div class="navbar-header">
             <img class="loro" src="images/parrot.png" alt="loro"/>
@@ -6,14 +6,14 @@
                 Parrot Poll</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
-            <li ng-show="!user">
+            <li ng-show="!navBarVM.user">
                 <a href="#/entrar">
                     <span class="glyphicon glyphicon-user"></span>
                     Mi cuenta</a>
             </li>
-            <li ng-show="user!=undefined" class="dropdown">
+            <li ng-show="navBarVM.user!=undefined" class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" role="button">Hola
-                    {{user.userName}}
+                    {{navBarVM.user.userName}}
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
@@ -22,25 +22,25 @@
                     </li>
                     <li role="separator" class="divider"></li>
                     <li>
-                        <a ng-click="logOut()">log out
+                        <a ng-click="navBarVM.logOut()">log out
                             <span class="glyphicon glyphicon-log-out"></span>
                         </a>
                     </li>
                 </ul>
             </li>
-            <li ng-show="user!=undefined" class="dropdown">
+            <li ng-show="navBarVM.user!=undefined" class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" role="button">invitaciones
-                    {{invitaciones.length}}
+                    {{navBarVM.invitaciones.length}}
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li ng-repeat="invitacion in invitaciones">
+                    <li ng-repeat="invitacion in navBarVM.invitaciones">
                         <div class="container">
                             <span>{{invitacion.pollText}}
                                 por
                                 {{invitacion.fromName}}</span>
                             <button type="button" class="btn btn-default" ui-sref="pollResult({pollId:invitacion.pollRef, inv:invitacion._id})">ok</button>
-                            <button type="button" class="btn btn-danger" ng-click="rechazarInvitacion(invitacion, $index)">no</button>
+                            <button type="button" class="btn btn-danger" ng-click="navBarVM.rechazarInvitacion(invitacion, $index)">no</button>
                         </div>
                     </li>
                 </ul>

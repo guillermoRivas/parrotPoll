@@ -1,7 +1,7 @@
-<div ng-controller="dashboardCtrl">
+<div ng-controller="dashboardCtrl as dashboardVM">
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <h1 class="page-header">Bienvenido
-            {{usuario.userName}}</h1>
+            {{dashboardVM.usuario.userName}}</h1>
 
         <div class="row placeholders">
             <div class="col-xs-6 col-sm-3 placeholder">
@@ -40,32 +40,32 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="poll in polls">
+                    <tr ng-repeat="poll in dashboardVM.polls">
                         <td>{{$index + 1}}</td>
                         <td>{{poll.name}}</td>
                         <td>
                             <p ng-if="poll.isPublic">
-                                <button ng-click="cambiarEstadoPoll(poll)" type="button" class="btn btn-succes btn-sm">
+                                <button ng-click="dashboardVM.cambiarEstadoPoll(poll)" type="button" class="btn btn-succes btn-sm">
                                     <span class="glyphicon glyphicon-eye-open"></span>
                                     abierta
                                 </button>
                             </p>
                             <p ng-if="!poll.isPublic">
-                                <button ng-click="cambiarEstadoPoll(poll)" type="button" class="btn btn-info btn-sm">
+                                <button ng-click="dashboardVM.cambiarEstadoPoll(poll)" type="button" class="btn btn-info btn-sm">
                                     <span class="glyphicon glyphicon-eye-close"></span>
                                     cerrada
                                 </button>
                             </p>
                         </td>
                         <td>
-                            <button ng-click="verEnlacePoll(poll)" type="button" data-toggle="modal" data-target="#enlaceModal" class="btn btn-default btn-sm">ver enlace</button>
+                            <button ng-click="dashboardVM.verEnlacePoll(poll)" type="button" data-toggle="modal" data-target="#enlaceModal" class="btn btn-default btn-sm">ver enlace</button>
                         </td>
                         <td>
-                            <button ng-if="poll.published" ng-click="selectPoll(poll)" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#invModal">invitar</button>
+                            <button ng-if="poll.published" ng-click="dashboardVM.selectPoll(poll)" type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#invModal">invitar</button>
                         </td>
                         <td>
                             <p>
-                                <button ng-disabled="poll.published" ng-click="publicar(poll)" type="button" class="btn btn-default btn-sm">
+                                <button ng-disabled="poll.published" ng-click="dashboardVM.publicar(poll)" type="button" class="btn btn-default btn-sm">
                                     <span class="glyphicon glyphicon-share"></span>
                                 </button>
                             </p>
@@ -84,7 +84,7 @@
                         </td>
                         <td>
                             <p>
-                                <button ng-click="borrarPoll(poll, $index)" type="button" class="btn btn-default btn-sm">
+                                <button ng-click="dashboardVM.borrarPoll(poll, $index)" type="button" class="btn btn-default btn-sm">
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </button>
                             </p>
@@ -109,7 +109,7 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <div class="input-group c-search">
-                                    <input ng-model="strUsuarioBuscar" ng-change="buscarUsuario()" type="text" class="form-control" placeholder="nombre de usuario...">
+                                    <input ng-model="dashboardVM.strUsuarioBuscar" ng-change="dashboardVM.buscarUsuario()" type="text" class="form-control" placeholder="nombre de usuario...">
                                     <span class="input-group-btn">
                                         <button class="btn btn-default" type="button">
                                             <span class="glyphicon glyphicon-search text-muted"></span>
@@ -119,9 +119,9 @@
                             </div>
                             <div class="panel-body">
                                 <ul class="list-group">
-                                    <li class="list-group-item" ng-repeat="usuario in listaBusqueda">
+                                    <li class="list-group-item" ng-repeat="usuario in dashboardVM.listaBusqueda">
                                         {{usuario.userName}}
-                                        <button ng-click="invitar(usuario)" type="button" class="btn btn-success btn-sm">invitar</button>
+                                        <button ng-click="dashboardVM.invitar(usuario)" type="button" class="btn btn-success btn-sm">invitar</button>
                                     </li>
                                 </ul>
                             </div>
@@ -147,7 +147,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="input-group c-search">
-                        <input ng-model="enlace" type="text" class="form-control">
+                        <input ng-model="dashboardVM.enlace" type="text" class="form-control">
                         <span class="input-group-btn">
                             <button class="btn btn-default" type="button">
                                 <span class="glyphicon glyphicon-link text-muted"></span>

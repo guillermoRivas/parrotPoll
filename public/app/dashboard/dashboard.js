@@ -1,92 +1,65 @@
 angular.module('parrotPollApp')
-    .controller('dashboardCtrl', function($scope, $http, $location) {
+    .controller('dashboardCtrl', ['$scope', '$http', '$location', 'dashboardService', 'userService', function($scope, $http, $location, dashboardService, userService) {
+        var dashboardVM = this;
+        //var
+        //func
+        //asin
+        dashboardVM.labels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+        dashboardVM.series = ['Series A'];
 
-        $http.get('api/auth/user').then(function(res) {
-            $scope.usuario = res.data;
-            $http.get("api/poll/owner/" + $scope.usuario._id).then(function(res) {
-                $scope.polls = res.data;
-            }, function(res) {
-                // acciones a realizar cuando se recibe una respuesta de error
-            });
-        });
-
-        $scope.labels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
-        $scope.series = ['Series A'];
-
-        $scope.data = [
+        dashboardVM.data = [
             [65, 59, 80, 81, 56, 55, 40]
         ];
 
-        $scope.verEnlacePoll = function(poll) {
-            var enlace = $location.absUrl();
-            enlace = enlace.replace("dashboard", "poll?pollId=");
-            $scope.enlace = enlace + poll._id;
+        dashboardVM.verEnlacePoll = function(poll) {
+            dashboardVM.enlace = dashboardService.crearEnlacePoll(poll);
         };
 
-        $scope.publicar = function(poll) {
-            poll.published = true;
-            var post = $http.put('api/poll', poll).then(
-                function(res) {
-                    // success callback
-                    //$scope.poll = res.data;
-                    $scope.mensajeExito = "Exito en la edición";
-                },
-                function(response) {
-                    poll.published = false;
-                }
-            );
+        dashboardVM.publicar = function(poll) {
+            dashboardService.publicarPoll(poll, function() {
+                dashboardVM.mensajeExito = "Exito en la edición";
+                poll.published = true;
+            });
         };
 
-        $scope.selectPoll = function(poll) {
-            $scope.selectPoll = poll;
+        dashboardVM.selectPoll = function(poll) {
+            dashboardVM.selectPoll = poll;
         };
 
-        $scope.buscarUsuario = function() {
-            if ($scope.strUsuarioBuscar.length >= 3) {
-                $http.get("api/user/names/" + $scope.strUsuarioBuscar).then(function(res) {
-                    $scope.listaBusqueda = res.data;
-                }, function(res) {
-                    // acciones a realizar cuando se recibe una respuesta de error
+        dashboardVM.buscarUsuario = function() {
+            if (dashboardVM.strUsuarioBuscar.length >= 3) {
+                userService.buscarUsuarios(dashboardVM.strUsuarioBuscar, function(data) {
+                    dashboardVM.listaBusqueda = data;
                 });
             }
         };
 
-        $scope.borrarPoll = function(poll, index) {
-            $http.delete("api/poll/" + poll._id).then(function(res) {
+        dashboardVM.borrarPoll = function(poll, index) {
+            dashboardService.borrarPoll(poll, function() {
                 $scope.polls.splice(index, 1);
-            }, function(res) {
-                // acciones a realizar cuando se recibe una respuesta de error
             });
         };
 
-        $scope.invitar = function(userFor) {
-            var invitacion = {
-                forRef: userFor._id,
-                fromRef: $scope.usuario._id,
-                fromName: $scope.usuario.userName,
-                pollRef: $scope.selectPoll._id,
-                pollText: $scope.selectPoll.name
-            };
-
-            $http.post('api/invitation', invitacion).then(
-                function(res) {
-                    //exito
-                },
-                function(response) {
-                    //error
-                }
-            );
+        dashboardVM.invitar = function(userFor) {
+            dashboardService.invitarUsuario(userFor, dashboardVM.usuario, dashboardVM.selectPoll, function(data) {
+                //exito
+            });
         };
 
-        $scope.cambiarEstadoPoll = function(poll) {
-            poll.isPublic = !poll.isPublic;
-            $http.put('api/poll', poll).then(
-                function(res) {
-
-                },
-                function(response) {
-                    // error
-                }
-            );
+        dashboardVM.cambiarEstadoPoll = function(poll) {
+          dashboardService.cambiarEstadoPoll(poll, function (data) {
+            //exito
+          });
         };
-    });
+        
+        //eje
+
+        userService.getUser(function (data) {
+          dashboardVM.usuario = data;
+
+          dashboardService.getPollsByOwner(dashboardVM.usuario,function (res) {
+                dashboardVM.polls = res.data;
+          });
+        });
+
+    }]);

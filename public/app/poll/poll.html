@@ -1,11 +1,11 @@
-<div ng-controller="pollCtrl">
+<div ng-controller="pollCtrl as pollVM">
     <div class="jumbotron text-center contenido">
-        <h1>{{poll.name}}</h1>
-        <p>{{poll.description}}</p>
+        <h1>{{pollVM.poll.name}}</h1>
+        <p>{{pollVM.poll.description}}</p>
     </div>
     <div class="container">
         <div class="row">
-            <div ng-show="!ocultarPreguntas" class="panel panel-primary" ng-repeat="question in poll.questions">
+            <div ng-show="!pollVM.ocultarPreguntas" class="panel panel-primary" ng-repeat="question in pollVM.poll.questions">
                 <div class="panel-heading">¿¿
                     {{question.text}}
                     ??</div>
@@ -14,7 +14,7 @@
                         <div style="margin: 10px" ng-repeat="answer in question.answers">
                             <div class="row" ng-class="{seleccionada: answer.selected}">
                                 <div class="col-sm-4">
-                                    <button type="button" ng-click="seleccionar(question,answer)" class="btn btn-default" style="display: block; width: 100%;">seleccional</button>
+                                    <button type="button" ng-click="pollVM.seleccionar(question,answer)" class="btn btn-default" style="display: block; width: 100%;">seleccional</button>
                                 </div>
                                 <div class="col-sm-8">
                                     {{answer.text}}
@@ -24,23 +24,23 @@
                     </div>
                 </div>
             </div>
-            <div ng-show="mensajeFinal">
+            <div ng-show="pollVM.mensajeFinal">
                 <div class="alert alert-success">
                     <strong>Success!</strong>
-                    {{mensajeFinal}}
+                    {{pollVM.mensajeFinal}}
                 </div>
             </div>
-            <div ng-show="mensajeError">
+            <div ng-show="pollVM.mensajeError">
                 <div class="alert alert-warning">
                     <strong>Success!</strong>
-                    {{mensajeError}}
+                    {{pollVM.mensajeError}}
                 </div>
             </div>
-            <div ng-show="resultados">
+            <div ng-show="pollVM.resultados">
                 <h4>Han contestado un total de
-                    {{totalResultados}}
+                    {{pollVM.totalResultados}}
                     personas</h4>
-                <div ng-repeat="resultado in resultados">
+                <div ng-repeat="resultado in pollVM.resultados">
                     <h3>{{resultado._id}}</h3>
                     <div ng-repeat="pregunta in resultado.answers" class="progress" style="height:50px">
                         <div class="progress-bar progress-bar-info" role="progressbar" style="width:{{(pregunta.total*100)/totalResultados}}%">
@@ -53,6 +53,6 @@
                 </div>
             </div>
         </div>
-        <button ng-show="!resultados" type="button" ng-click="guardar()" class="btn btn-default" style="display: block; width: 100%;">guardar</button>
+        <button ng-show="!pollVM.resultados" type="button" ng-click="pollVM.guardar()" class="btn btn-default" style="display: block; width: 100%;">guardar</button>
     </div>
 </div>

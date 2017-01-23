@@ -1,4 +1,4 @@
-<div ng-controller="loginSingupCtrl">
+<div ng-controller="loginSingupCtrl as loginSingupVM">
     <div class="container">
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2 text">
@@ -20,18 +20,18 @@
                         <h3>Inicar sesión</h3>
                         <p>Entra con tu usuario y contraseña:</p>
                     </div>
-                    <div class="alert alert-warning" ng-if="usuarioNoValido">
-                        {{usuarioNoValido}}
+                    <div class="alert alert-warning" ng-if="loginSingupVM.usuarioNoValido">
+                        {{loginSingupVM.usuarioNoValido}}
                     </div>
                     <div class="form-bottom">
-                        <form role="form" ng-submit="login()" name="loginForm">
+                        <form role="form" ng-submit="loginSingupVM.login()" name="loginForm">
                             <div class="form-group">
                                 <label class="sr-only" for="form-username">Username</label>
-                                <input ng-model="user.userName" type="text" name="form-username" placeholder="Usuario..." class="form-control" id="form-username" required>
+                                <input ng-model="loginSingupVM.user.userName" type="text" name="form-username" placeholder="Usuario..." class="form-control" id="form-username" required>
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="form-password">Password</label>
-                                <input ng-model="user.password" type="password" name="form-password" placeholder="Contraseña..." class="form-control" id="form-password" required>
+                                <input ng-model="loginSingupVM.user.password" type="password" name="form-password" placeholder="Contraseña..." class="form-control" id="form-password" required>
                             </div>
                             <button type="submit" class="btn">Entrar!</button>
                         </form>
@@ -66,28 +66,28 @@
                         <h3>Crea una cuenta</h3>
                         <p>Rellene el siguiente formulario para obtener acceso instantáneo :</p>
                     </div>
-                    <div class="alert alert-danger" ng-if="errorRegistro">
-                        {{errorRegistro}}
+                    <div class="alert alert-danger" ng-if="loginSingupVM.errorRegistro">
+                        {{loginSingupVM.errorRegistro}}
                     </div>
-                    <form ng-submit="submit()" name="userForm" id="userForm" role="form">
+                    <form ng-submit="loginSingupVM.submit()" name="userForm" id="userForm" role="form">
                         <div class="form-group">
                             <label class="sr-only" for="regUserName">Nombre de usuario</label>
-                            <input type="text" ng-model="userReg.userName" pattern=".{3,}" title="Nombre de usuario demasiado corto" required name="regUserName" placeholder="nombre de usuario..." class="form-control">
+                            <input type="text" ng-model="loginSingupVM.userReg.userName" pattern=".{3,}" title="Nombre de usuario demasiado corto" required name="regUserName" placeholder="nombre de usuario..." class="form-control">
                         </div>
 
                         <div class="form-group">
                             <label class="sr-only" for="email">Email</label>
-                            <input type="email" ng-model="userReg.email" required name="email" class="form-control" placeholder="email ...">
+                            <input type="email" ng-model="loginSingupVM.userReg.email" required name="email" class="form-control" placeholder="email ...">
                         </div>
 
                         <div class="form-group">
                             <label class="sr-only" for="password">password</label>
-                            <input ng-model="userReg.password" pattern=".{6,10}" title="la contraseña deve tener entre 6 y 12 caracteres" required type="password" placeholder="contraseña..." class="form-control" name="password">
+                            <input ng-model="loginSingupVM.userReg.password" pattern=".{6,10}" title="la contraseña deve tener entre 6 y 12 caracteres" required type="password" placeholder="contraseña..." class="form-control" name="password">
                         </div>
 
                         <div class="form-group">
                             <label class="sr-only" for="password">repeat password</label>
-                            <input ng-model="rePassword" pattern=".{6,10}" title="la contraseña deve tener entre 6 y 12 caracteres" required type="password" placeholder="repite la contraseña..." class="form-control" name="rePassword">
+                            <input ng-model="loginSingupVM.rePassword" pattern=".{6,10}" title="la contraseña deve tener entre 6 y 12 caracteres" required type="password" placeholder="repite la contraseña..." class="form-control" name="rePassword">
                         </div>
 
                         <div class="form-group">

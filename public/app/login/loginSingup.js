@@ -1,65 +1,46 @@
 angular.module('parrotPollApp')
-    .controller('loginSingupCtrl', function($scope, $http, $location, $auth, userFactory) {
+    .controller('loginSingupCtrl', ['$scope', '$http', '$location', '$auth', 'userFactory', 'userService', 'securityService', function($scope, $http, $location, $auth, userFactory, userService, securityService) {
+        var loginSingupVM = this;
+        //vars
+        //func
+        
+        function singup() {
+            securityService.signup(loginSingupVM.userReg, function functionName() {
+                loginSingupVM.errorRegistro = "No se ha podido registrar el usuario";
+            });
+        }
+        //asic
 
-        $scope.submit = function() {
-
-            if ($scope.userReg.password != $scope.rePassword) {
-                $scope.errorRegistro = "Las contraseñas no coinciden";
-                return 0;
+        loginSingupVM.submit = function() {
+            var passValid = userService.validarPassUser(loginSingupVM.userReg, loginSingupVM.rePassword);
+            if (!passValid) {
+                loginSingupVM.errorRegistro = "Las contraseñas no coinciden";
+                return -1;
             }
 
-            var get = $http.get('api/user/exist/' + $scope.userReg.userName).then(
-                function(res) {
-                    // success callback
-                    if (!res.data.result) {
-                        $http.get('api/user/existEmail/' + $scope.userReg.email).then(function(result) {
-                            if (!result.data.result)
-                                singup();
-                            else
-                                $scope.errorRegistro = "El email ya esta en uso";
-                        });
+            userService.existeUserName(loginSingupVM.userReg.userName, function(res) {
+                if (!res) {
+                    userService.existeUserEmail(loginSingupVM.userReg.email, function(result) {
+                        if (result)
+                            singup();
+                        else
+                            loginSingupVM.errorRegistro = "El email ya esta en uso";
+                    });
 
-                    } else
-                        $scope.errorRegistro = "El nombre de usuario ya existe";
-                },
-                function(response) {
-
-                }
-            );
+                } else
+                    loginSingupVM.errorRegistro = "El nombre de usuario ya existe";
+            });
         };
 
-        function singup() {
-            $auth.signup($scope.userReg)
-                .then(function(res) {
-                    $scope.userReg = undefined;
-                    $scope.rePassword = undefined;
-                    //userFactory.getUser();
-                    //localStorage.setItem("token", res.data.token);
-                    localStorage.setItem("parrotPollApp_token",res.data.token)
-                    $location.path('/dashboard');
-                }, function() {
-                    $scope.errorRegistro = "No se ha podido registrar el usuario";
-                });
-        }
+        loginSingupVM.login = function() {
+            securityService.login(loginSingupVM.user, function() {
+                loginSingupVM.userReg = undefined;
+                $location.path("/dashboard");
+            }, function() {
+                loginSingupVM.usuarioNoValido = "Usuario o contraseña incorrectos";
+            });
 
-        $scope.login = function() {
-
-            $auth.login({
-                    userName: $scope.user.userName,
-                    password: $scope.user.password
-                })
-                .then(function(res) {
-
-                    // Si se ha logueado correctamente, lo tratamos aquí.
-                    // Podemos también redirigirle a una ruta
-                    $scope.userReg = undefined;
-                    //userFactory.getUser();
-                    //localStorage.setItem("token", res.data.token);
-                    $location.path("/dashboard");
-                })
-                .catch(function(res) {
-                    $scope.usuarioNoValido = "Usuario o contraseña incorrectos";
-                });
         };
 
-    });
+    }]);
+//ejec

@@ -1,45 +1,40 @@
 angular.module('parrotPollApp')
-    .controller('homeCtrl', function($scope, $http, $location) {
-
-        $scope.paginaActual = 0;
-        $scope.maxPaginas = 0;
+    .controller('homeCtrl', ['$scope', '$http', '$location', 'pollService', 'utilService',function($scope, $http, $location, pollService, utilService) {
+      var homeVM = this;
+      //Vars
+        homeVM.paginaActual = 0;
+        homeVM.maxPaginas = 0;
+        homeVM.polls = [];
         var pollsPorPagina = 9;
-        $scope.polls = [];
-
-        $http.get("api/poll/count").then(function(res) {
-            $scope.maxPaginas = Math.floor(res.data / pollsPorPagina);
-        }, function(res) {
-            // acciones a realizar cuando se recibe una respuesta de error
-        });
+        //func
+        var concatPolls = function(data){
+          homeVM.polls = homeVM.polls.concat(data);
+        };
 
         function pedirPagina() {
-            $http.get("api/poll?pag=" + $scope.paginaActual + "&skip=" + pollsPorPagina).then(function(res) {
-                $scope.polls = $scope.polls.concat(res.data);
-            }, function(res) {
-                // acciones a realizar cuando se recibe una respuesta de error
-            });
+          pollService.getPolls(homeVM.paginaActual, pollsPorPagina,concatPolls);
         }
 
-        $scope.siguientePagina = function() {
-            $scope.paginaActual++;
+        //asin
+        homeVM.siguientePagina = function() {
+            homeVM.paginaActual++;
             pedirPagina();
         };
 
-        $scope.redirectPoll = function(poll) {
+        homeVM.redirectPoll = function(poll) {
             $location.path('#/poll?pollId=' + poll._id);
         };
 
-        pedirPagina();
-
-        $scope.calcularFecha = function(date) {
-            date = Date.parse(date);
-            var fechaActual = new Date();
-
-            var dif = fechaActual - date;
-            var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
-            return dias;
-
+        homeVM.calcularFecha = function (date) {
+          return utilService.calcularFecha(date);
         };
 
+        //ejec
 
-    });
+        pollService.getMaxPaginas(pollsPorPagina, function(data) {
+          homeVM.maxPaginas = data;
+        });
+
+        pedirPagina();
+
+    }]);

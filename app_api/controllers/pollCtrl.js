@@ -100,7 +100,7 @@ exports.getRepPollResults = function(req, res) {
 
     Poll.aggregate([
       {
-        $match: { owner: id }
+        $match: { owner: id, isDeleted : false }
     },
     {
       $lookup:

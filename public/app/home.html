@@ -1,15 +1,15 @@
 <div ng-controller="homeCtrl as homeVM">
     <div class="jumbotron text-center cabecera">
         <h1>Parrot poll</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p>Aplicación de votaciones. comienza ya!! </p>
     </div>
     <div ng-controller="indexCtrl" class="container-fluid">
         <div class="row">
             <div ng-repeat="poll in homeVM.polls" class="col-sm-4 poll" ui-sref="pollResult({pollId:poll._id})">
-              <div class="col-sm-6">
+              <div class="col-sm-12">
                 <img src="images/interrogarion_green.jpg" alt="interrogacion" />
               </div>
-              <div class="col-sm-6">
+              <div class="col-sm-12">
                 <div class="poll-item">
                     <h3>{{poll.name}}</h3>
                     <p>{{poll.description}}</p>
@@ -19,6 +19,6 @@
 
             </div>
         </div>
-        <button style="display: block; width: 100%;" ng-show="homeVM.paginaActual<homeVM.maxPaginas" ng-click="homeVM.siguientePagina()">button</button>
+        <button class="btn btn-primary" style="display: block; width: 100%;" ng-show="homeVM.paginaActual<homeVM.maxPaginas" ng-click="homeVM.siguientePagina()">Cargar mas</button>
     </div>
 </div>

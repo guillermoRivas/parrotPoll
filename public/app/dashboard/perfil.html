@@ -1,86 +1,79 @@
-<div ng-controller="perfilCtrl" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <h1>Edit Profile</h1>
+<div ng-controller="perfilCtrl as perfilVM" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h1>Perfil {{perfilVM.user.userName}}</h1>
     <hr>
     <div class="row">
         <!-- left column -->
-        <div class="col-md-3">
-            <div class="text-center">
-                <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
-                <h6>Upload a different photo...</h6>
-                <input type="file" class="form-control">
-            </div>
-        </div>
 
         <!-- edit form column -->
         <div class="col-md-9">
-            <div class="alert alert-info alert-dismissable" ng-if="$scope.mensajeError">
+            <div class="alert alert-info alert-dismissable" ng-if="perfilVM.mensajeError">
                 <a class="panel-close close" data-dismiss="alert">×</a>
                 <i class="fa fa-coffee"></i>
                 This is an
                 <strong>.alert</strong>. Use this to show important messages to the user.
             </div>
-            <h3>Personal info</h3>
-            <form ng-submit="guardar()" class="form-horizontal" role="form">
-                <div ng-if="mensajeExito" class="alert alert-success">
-                    <strong>Success!</strong>
-                    {{mensajeExito}}
+            <h3>Información personal</h3>
+            <form ng-submit="perfilVM.guardar()" class="form-horizontal" role="form">
+                <div ng-if="perfilVM.mensajeExito" class="alert alert-success">
+                    <strong></strong>
+                    {{perfilVM.mensajeExito}}
                 </div>
-                <div ng-if="errorEditar" class="alert alert-danger">
+                <div ng-if="perfilVM.errorEditar" class="alert alert-danger">
                     <strong>Danger!</strong>
-                    {{errorEditar}}
+                    {{perfilVM.errorEditar}}
                 </div>
                 <!-- Email -->
                 <div class="form-group">
                     <label class="col-lg-3 control-label">Email:</label>
                     <div class="col-lg-8">
-                        <input ng-model="user.email" class="form-control" type="email" required>
+                        <input ng-model="perfilVM.user.email" class="form-control" type="email" required>
                     </div>
                 </div>
                 <!-- Nombre -->
                 <div class="form-group">
-                    <label class="col-lg-3 control-label">First name:</label>
+                    <label class="col-lg-3 control-label">Nombre:</label>
                     <div class="col-lg-8">
-                        <input ng-model="user.firstName" class="form-control" type="text">
+                        <input ng-model="perfilVM.user.firstName" class="form-control" type="text">
                     </div>
                 </div>
                 <!-- Apellidos -->
                 <div class="form-group">
-                    <label class="col-lg-3 control-label">Last name:</label>
+                    <label class="col-lg-3 control-label">Apellidos:</label>
                     <div class="col-lg-8">
-                        <input ng-model="user.lastName" class="form-control" type="text">
+                        <input ng-model="perfilVM.user.lastName" class="form-control" type="text">
                     </div>
                 </div>
                 <!-- Edad -->
                 <div class="form-group">
-                    <label class="col-lg-3 control-label">Age:</label>
+                    <label class="col-lg-3 control-label">Edad:</label>
                     <div class="col-lg-8">
-                        <input ng-model="user.age" pattern= "[0-9]{1,3}" class="form-control">
+                        <input ng-model="perfilVM.user.age" pattern= "[0-9]{1,3}" class="form-control">
                     </div>
                 </div>
                 <!-- Intereses -->
                 <div class="form-group">
                     <label class="col-lg-3 control-label">Intereses:</label>
                     <div class="col-lg-8">
-                        <input ng-model="user.interests" class="form-control" type="text" >
+                        <input ng-model="perfilVM.user.interests" class="form-control" type="text" >
                     </div>
                 </div>
                 <!-- Sexo -->
                 <div class="form-group">
-                    <label class="col-lg-3 control-label">Sex</label>
+                    <label class="col-lg-3 control-label">Sexo</label>
                     <div class="col-lg-8">
                         <span class="radio">
-                            <label><input ng-model="user.sex" class="radio_buttons optional" type="radio" value="Male">Male</label>
+                            <label><input ng-model="perfilVM.user.sex" class="radio_buttons optional" type="radio" value="Male">Male</label>
                         </span>
                         <span class="radio">
-                            <label><input ng-model="user.sex" class="radio_buttons optional" type="radio" value="Female">Female</label>
+                            <label><input ng-model="perfilVM.user.sex" class="radio_buttons optional" type="radio" value="Female">Female</label>
                         </span>
                     </div>
                 </div>
                 <!-- country select -->
                 <div class="form-group">
-                    <label class="col-lg-3 control-label">Country</label>
+                    <label class="col-lg-3 control-label">Pais</label>
                     <div class="col-lg-8">
-                        <select ng-model="user.country" style="margin-top: 5px">
+                        <select ng-model="perfilVM.user.country" style="margin-top: 5px">
                             <option value="" selected="selected">(please select a country)</option>
                             <option value="AF">Afghanistan</option>
                             <option value="AL">Albania</option>
@@ -326,31 +319,31 @@
                 </div>
                 <!-- region input-->
                 <div class="form-group">
-                    <label class="col-lg-3 control-label">State / Province / Region</label>
+                    <label class="col-lg-3 control-label">Estado / Provincia / Region</label>
                     <div class="col-lg-8">
-                        <input ng-model="user.region" class="form-control" type="text">
+                        <input ng-model="perfilVM.user.region" class="form-control" type="text">
                     </div>
                 </div>
                 <!-- Ciudad-->
                 <div class="form-group">
-                    <label class="col-lg-3 control-label">City / Town:</label>
+                    <label class="col-lg-3 control-label">Ciudad:</label>
                     <div class="col-lg-8">
-                        <input ng-model="user.town" class="form-control" type="text">
+                        <input ng-model="perfilVM.user.town" class="form-control" type="text">
                     </div>
                 </div>
                 <!-- postal-code input-->
                 <div class="form-group">
-                    <label class="col-lg-3 control-label">Zip / Postal Code</label>
+                    <label class="col-lg-3 control-label">Zip / Código Postal</label>
                     <div class="col-lg-8">
-                        <input ng-model="user.zipCode" class="form-control" type="text">
+                        <input ng-model="perfilVM.user.zipCode" class="form-control" type="text">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 control-label"></label>
                     <div class="col-md-8">
-                        <input type="submit" class="btn btn-primary" value="Save Changes">
+                        <input type="submit" class="btn btn-primary" value="Guardar">
                         <span></span>
-                        <input type="reset" class="btn btn-default" value="Cancel">
+                        <input type="reset" class="btn btn-default" value="Borrar todo">
                     </div>
                 </div>
             </form>

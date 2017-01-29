@@ -1,46 +1,16 @@
 <div ng-controller="menuCtrl as menuVM" class="col-sm-3 col-md-2 sidebar">
     <ul class="nav nav-sidebar">
-        <li class="active">
-            <a href="#">Overview
-                <span class="sr-only">(current)</span>
-            </a>
+        <li ng-class="(menuVM.current == 1)? 'active' : ''">
+            <a href="#/dashboard">Dashboard</a>
         </li>
-        <li>
+        <li ng-class="(menuVM.current == 2)? 'active' : ''">
             <a href="#/dashboard/perfil">Perfil</a>
         </li>
-        <li>
-            <a href="#">Analytics</a>
+        <li ng-class="(menuVM.current == 3)? 'active' : ''">
+            <a href="#/dashboard/poll">Nueva Poll</a>
         </li>
         <li>
-            <a href="#">Export</a>
-        </li>
-    </ul>
-    <ul class="nav nav-sidebar">
-        <li>
-            <a href="#/dashboard/poll">nueva poll</a>
-        </li>
-        <li>
-            <a href="">Nav item again</a>
-        </li>
-        <li>
-            <a href="">One more nav</a>
-        </li>
-        <li>
-            <a href="">Another nav item</a>
-        </li>
-        <li>
-            <a href="">More navigation</a>
-        </li>
-    </ul>
-    <ul class="nav nav-sidebar">
-        <li>
-            <a href="">Nav item again</a>
-        </li>
-        <li>
-            <a href="">One more nav</a>
-        </li>
-        <li>
-            <a href="">Another nav item</a>
+            <a href="#/home">Página principal</a>
         </li>
     </ul>
 </div>

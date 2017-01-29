@@ -8,7 +8,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Panel heading without title</div>
                 <div class="panel-body">
-                    <canvas id="polar-area" class="chart chart-polar-area" chart-data="data" chart-labels="labels" chart-options="options"></canvas>
+                    <canvas id="polar-area" class="chart chart-polar-area" chart-data="resultadosVM.CharPolar.data" chart-labels="resultadosVM.CharPolar.labels" chart-options="resultadosVM.CharPolar.options"></canvas>
                 </div>
             </div>
         </div>
@@ -34,7 +34,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Panel heading without title</div>
                 <div class="panel-body">
-                    <canvas id="line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options" chart-dataset-override="datasetOverride" chart-click="onClick"></canvas>
+                    <canvas id="line" class="chart chart-line" chart-data="resultadosVM.charLine.data" chart-labels="resultadosVM.charLine.labels" chart-series="resultadosVM.series" chart-options="resultadosVM.options" chart-dataset-override="resultadosVM.datasetOverride" chart-click="resultadosVM.onClick"></canvas>
                 </div>
             </div>
         </div>
@@ -45,7 +45,7 @@
             personas</h4>
         <div ng-repeat="resultado in resultadosVM.resultados">
             <h3>{{resultado._id}}</h3>
-            <div ng-repeat="pregunta in resultadosVM.resultado.answers" class="progress" style="height:50px">
+            <div ng-repeat="pregunta in resultado.answers" class="progress" style="height:50px">
                 <div class="progress-bar progress-bar-info" role="progressbar" style="width:{{(pregunta.total*100)/resultadosVM.totalResultados}}%">
                     <h4>
                         {{pregunta.answer}}

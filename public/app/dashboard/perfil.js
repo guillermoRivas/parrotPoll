@@ -1,36 +1,41 @@
 angular.module('parrotPollApp')
-    .controller('perfilCtrl', function($scope, $http, $auth) {
+    .controller('perfilCtrl', ['$scope', '$http', '$auth', 'userService', function($scope, $http, $auth, userService) {
+        var perfilVM = this;
+        //var
         var userOriginal;
-        if ($auth.isAuthenticated()) {
-            $http.get('api/auth/user').then(function(res) {
-                $scope.user = res.data;
-                userOriginal = angular.copy(res.data);
+        //func
+        function guardar() {
+            userService.editarUsuario(perfilVM.user, function() {
+                perfilVM.mensajeExito = "Exito en la edición";
             });
         }
+        //asic
+        perfilVM.guardar = function() {
 
-        $scope.guardar = function() {
+            if (userOriginal.email != perfilVM.user.email) {
 
-            if (userOriginal.email != $scope.user.email) {
-                $http.get('api/user/existEmail/' + $scope.user.email).then(function(result) {
-                    if (!result.data.result)
+                userService.existeUserEmail(perfilVM.user.email, function(data) {
+                    if (!data)
                         guardar();
                     else
-                        $scope.errorEditar = "El email ya esta en uso";
+                        perfilVM.errorEditar = "El email ya esta en uso";
                 });
-            }else{
-              guardar();
+
+            } else {
+                guardar();
             }
         };
+        //eje
 
-        function guardar() {
-            $http.put('api/user', $scope.user).then(
-                function(res) {
-                    // success callback
-                    $scope.mensajeExito = "Exito en la edición";
-                },
-                function(response) {
-                    // error
-                }
-            );
+        if ($auth.isAuthenticated()) {
+            userService.getUser(function(data) {
+                perfilVM.user = data;
+                userOriginal = angular.copy(data);
+            });
+
         }
-    });
+
+
+
+
+    }]);

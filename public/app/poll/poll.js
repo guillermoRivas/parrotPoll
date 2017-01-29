@@ -13,9 +13,10 @@ angular.module('parrotPollApp')
         function mostrarResultado() {
             pollService.ResultsCount(pollVM.poll.referencePoll, function(data) {
                 pollVM.totalResultados = data;
-                pollService.getResults(pollVM.poll.referencePoll, function(res) {
-                    pollVM.resultados = res;
-                });
+            });
+
+            pollService.getResults(pollVM.poll.referencePoll, function(res) {
+                pollVM.resultados = res;
             });
         }
         //asin
@@ -37,9 +38,9 @@ angular.module('parrotPollApp')
 
             pollVM.poll.locationResult = pollVM.location;
 
-            pollService.savesavePollResultPoll(poll, function() {
+            pollService.savePollResult(pollVM.poll, function() {
                 pollVM.ocultarPreguntas = true;
-                if (inv) userService.rechazarInvitacion(inv);
+                if (inv) userService.borrarInvitacion(inv);
                 if (showResult)
                     mostrarResultado();
                 else
@@ -48,8 +49,8 @@ angular.module('parrotPollApp')
         };
 
         //eje
-        pollService.getPoll(id, function () {
-          pollVM.poll = res.data;
+        pollService.getPoll(id, function (res) {
+          pollVM.poll = res;
           var refpoll = pollVM.poll._id;
           delete pollVM.poll._id;
           pollVM.poll.referencePoll = refpoll;

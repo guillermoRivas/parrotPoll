@@ -1,44 +1,44 @@
-<div ng-controller="dashboardPollCtrl" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+<div ng-controller="dashboardPollCtrl as dashboardPollVM" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <h1 class="page-header">Crea una votación</h1>
-    <form role="form" ng-submit="guardar()">
+    <form role="form" ng-submit="dashboardPollVM.guardar()">
         <div class="jumbotron text-center">
             <div class="row">
               <div class="form-group">
-                <h1><input class="col-md-12" type="text" ng-model="poll.name" placeholder="Nombre de la votación"></h1>
+                <h1><input class="col-md-12" type="text" ng-model="dashboardPollVM.poll.name" placeholder="Nombre de la votación"></h1>
               </div>
               <div class="form-group" style="margin-top:110px">
-                <textarea class="col-md-12" ng-model="poll.description" placeholder="Descripcción de la votación"></textarea>
+                <textarea class="col-md-12" ng-model="dashboardPollVM.poll.description" placeholder="Descripcción de la votación"></textarea>
               </div>
             </div>
         </div>
         <div class="container-fluid">
             <div class="form-group">
                 <label for="owner">Propietario</label>
-                <input disabled type="text" class="form-control" id="owner" ng-model="poll.ownerName">
+                <input disabled type="text" class="form-control" id="owner" ng-model="dashboardPollVM.poll.ownerName">
             </div>
 
             <div class="checkbox">
-                <label><input type="checkbox" ng-model="poll.isPublic">
+                <label><input type="checkbox" ng-model="dashboardPollVM.poll.isPublic">
                     Pública</label>
             </div>
             <div class="checkbox">
-                <label><input type="checkbox" ng-model="poll.resultIsPublic">
+                <label><input type="checkbox" ng-model="dashboardPollVM.poll.resultIsPublic">
                     Resultados público</label>
             </div>
-            <div ng-if="!modoEdicion" class="checkbox">
-                <label><input type="checkbox" ng-model="poll.published">
+            <div ng-if="!dashboardPollVM.modoEdicion" class="checkbox">
+                <label><input type="checkbox" ng-model="dashboardPollVM.poll.published">
                     Guardar como borrador</label>
             </div>
 
             <div class="row">
-                <div class="panel panel-primary" ng-repeat="question in poll.questions">
+                <div class="panel panel-primary" ng-repeat="question in dashboardPollVM.poll.questions">
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" ng-model="question.text" placeholder="Pregunta... ?" required>
                             </div>
                             <div class="col-sm-4">
-                                <button ng-if="poll.questions.length>1" type="button" ng-click="deleteQuestion($index)" class="btn btn-danger">Eliminar</button>
+                                <button ng-if="dashboardPollVM.poll.questions.length>1" type="button" ng-click="dashboardPollVM.deleteQuestion($index)" class="btn btn-danger">Eliminar</button>
                             </div>
                         </div>
                     </div>
@@ -50,25 +50,25 @@
                                         <input type="text" class="form-control" ng-model="answer.text" placeholder="Respuesta..." required>
                                     </div>
                                     <div class="col-sm-4">
-                                        <button ng-if="question.answers.length>1" type="button" ng-click="deleteAnswer(question, $index)" class="btn btn-danger">Eliminar</button>
+                                        <button ng-if="question.answers.length>1" type="button" ng-click="dashboardPollVM.deleteAnswer(question, $index)" class="btn btn-danger">Eliminar</button>
                                     </div>
                                 </div>
                             </div>
-                            <button ng-if="question.answers.length < 10" type="button" ng-click="newAnswer(question)" class="btn btn-default" style="display: block; width: 100%;">new ansquer</button>
+                            <button ng-if="question.answers.length < 10" type="button" ng-click="dashboardPollVM.newAnswer(question)" class="btn btn-default" style="display: block; width: 100%;">new ansquer</button>
                         </div>
                     </div>
                 </div>
-                <button ng-if="poll.questions.length < 50" type="button" ng-click="newQuestion()" class="btn btn-default" style="display: block; width: 100%;">Nueva pregunta</button>
+                <button ng-if="dashboardPollVM.poll.questions.length < 50" type="button" ng-click="dashboardPollVM.newQuestion()" class="btn btn-default" style="display: block; width: 100%;">Nueva pregunta</button>
             </div>
             <input type="submit" class="btn btn-success" style="margin-top:10px" value="Guardar">
         </form>
-        <div ng-if="mensajeError" class="alert alert-danger">
+        <div ng-if="dashboardPollVM.mensajeError" class="alert alert-danger">
             <strong>Danger!</strong>
-            {{mensajeError}}
+            {{dashboardPollVM.mensajeError}}
         </div>
-        <div ng-if="mensajeExito" class="alert alert-success">
+        <div ng-if="dashboardPollVM.mensajeExito" class="alert alert-success">
             <strong>Danger!</strong>
-            {{mensajeExito}}
+            {{dashboardPollVM.mensajeExito}}
         </div>
     </div>
 </div>

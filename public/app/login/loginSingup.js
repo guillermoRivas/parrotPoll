@@ -3,9 +3,9 @@ angular.module('parrotPollApp')
         var loginSingupVM = this;
         //vars
         //func
-        
+
         function singup() {
-            securityService.signup(loginSingupVM.userReg, function functionName() {
+            securityService.signup(loginSingupVM.userReg, function() {
                 loginSingupVM.errorRegistro = "No se ha podido registrar el usuario";
             });
         }
@@ -21,7 +21,7 @@ angular.module('parrotPollApp')
             userService.existeUserName(loginSingupVM.userReg.userName, function(res) {
                 if (!res) {
                     userService.existeUserEmail(loginSingupVM.userReg.email, function(result) {
-                        if (result)
+                        if (!result)
                             singup();
                         else
                             loginSingupVM.errorRegistro = "El email ya esta en uso";

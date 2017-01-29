@@ -28,6 +28,16 @@ angular.module('parrotPollApp')
                 });
         };
 
+        this.borrarInvitacion = function(id) {
+            dataFactory.deleteInvitaciones(id)
+                .then(function(res) {
+                  
+                }, function(res) {
+                    // acciones a realizar cuando se recibe una respuesta de error
+                });
+        };
+
+
         this.validarPassUser = function(user, rePass) {
             var result = true;
 
@@ -39,7 +49,7 @@ angular.module('parrotPollApp')
         this.existeUserName = function(userName, callBack) {
             dataFactory.getUserExistUserName(userName)
                 .then(function(res) {
-                  var existe = res.data.result !== undefined;
+                  var existe = res.data.result;
                     callBack(existe);
                 }, function(res) {
                     // acciones a realizar cuando se recibe una respuesta de error
@@ -49,7 +59,7 @@ angular.module('parrotPollApp')
         this.existeUserEmail = function(email, callBack) {
             dataFactory.getUserExistUserEmail(email)
                 .then(function(res) {
-                  var existe = result.data.result !== undefined;
+                  var existe = res.data.result;
                     callBack(existe);
                 }, function(res) {
                     // acciones a realizar cuando se recibe una respuesta de error
@@ -57,7 +67,7 @@ angular.module('parrotPollApp')
         };
 
         this.buscarUsuarios = function(nombre, callBack) {
-            dataFactory.getUserByName(name)
+            dataFactory.getUserByName(nombre)
                 .then(function(res) {
                     callBack(res.data);
                 }, function(res) {
@@ -65,7 +75,14 @@ angular.module('parrotPollApp')
                 });
         };
 
-
+        this.editarUsuario = function(user, callBack) {
+            dataFactory.putUser(user)
+                .then(function(res) {
+                    callBack(res.data);
+                }, function(res) {
+                    // acciones a realizar cuando se recibe una respuesta de error
+                });
+        };
 
 
     }]);

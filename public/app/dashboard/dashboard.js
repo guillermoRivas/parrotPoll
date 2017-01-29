@@ -4,12 +4,8 @@ angular.module('parrotPollApp')
         //var
         //func
         //asin
-        dashboardVM.labels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
-        dashboardVM.series = ['Series A'];
 
-        dashboardVM.data = [
-            [65, 59, 80, 81, 56, 55, 40]
-        ];
+        dashboardVM.series = ['Series A'];
 
         dashboardVM.verEnlacePoll = function(poll) {
             dashboardVM.enlace = dashboardService.crearEnlacePoll(poll);
@@ -36,7 +32,7 @@ angular.module('parrotPollApp')
 
         dashboardVM.borrarPoll = function(poll, index) {
             dashboardService.borrarPoll(poll, function() {
-                $scope.polls.splice(index, 1);
+                dashboardVM.polls.splice(index, 1);
             });
         };
 
@@ -51,14 +47,19 @@ angular.module('parrotPollApp')
             //exito
           });
         };
-        
+
         //eje
 
         userService.getUser(function (data) {
           dashboardVM.usuario = data;
 
+          dashboardService.getReportResults(dashboardVM.usuario._id, function (res) {
+            dashboardVM.labels = res.lavels;
+            dashboardVM.data = res.data;
+          });
+
           dashboardService.getPollsByOwner(dashboardVM.usuario,function (res) {
-                dashboardVM.polls = res.data;
+                dashboardVM.polls = res;
           });
         });
 

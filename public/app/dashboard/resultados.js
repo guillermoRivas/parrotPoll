@@ -1,25 +1,23 @@
 angular.module('parrotPollApp')
     .controller('resultadosCtrl', ['$scope', '$http', '$stateParams', 'dashboardService', 'pollService', function($scope, $http, $stateParams, dashboardService, pollService) {
-        var resultados = this;
+        var resultadosVM = this;
         //var
         var refId = $stateParams.pollId;
         //func
         //asic
-        resultadosVM.labels = ["January", "February", "March", "April", "May", "June", "July"];
-        resultadosVM.series = ['Series A', 'Series B'];
-        resultadosVM.data = [
-            [65, 59, 80, 81, 56, 55, 40],
-            [28, 48, 40, 19, 86, 27, 90]
-        ];
-        resultadosVM.onClick = function(points, evt) {
+        resultadosVM.CharPolar = {};
+
+        resultadosVM.CharPolar.onClick = function(points, evt) {
             console.log(points, evt);
         };
-        resultadosVM.datasetOverride = [{
+
+        resultadosVM.CharPolar.datasetOverride = [{
             yAxisID: 'y-axis-1'
         }, {
             yAxisID: 'y-axis-2'
         }];
-        resultadosVM.options = {
+
+        resultadosVM.CharPolar.options = {
             scales: {
                 yAxes: [{
                     id: 'y-axis-1',
@@ -35,18 +33,29 @@ angular.module('parrotPollApp')
             }
         };
 
-        resultadosVM.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales", "Tele Sales", "Corporate Sales"];
-        resultadosVM.data = [300, 500, 100, 40, 120];
+        resultadosVM.charLine = {};
+        resultadosVM.charLine.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales", "Tele Sales", "Corporate Sales"];
+        resultadosVM.charLine.data = [300, 500, 100, 40, 120];
 
         //eje
         pollService.getPoll(refId, function(data) {
             resultadosVM.poll = data;
         });
 
+        dashboardService.getReportPollResultsCountry(refId, function(data) {
+            resultadosVM.CharPolar.labels = data.lavels;
+            resultadosVM.CharPolar.data = [data.data];
+        });
+
+        dashboardService.getReportPollResultsTime(refId, function(data) {
+          resultadosVM.charLine.labels = data.lavels;
+          resultadosVM.charLine.data = [data.data];
+        });
+
         pollService.ResultsCount(refId, function(data) {
             resultadosVM.totalResultados = data;
             pollService.getResults(refId, function(res) {
-                resultadosVM.resultados = res.data;
+                resultadosVM.resultados = res;
             });
         });
 

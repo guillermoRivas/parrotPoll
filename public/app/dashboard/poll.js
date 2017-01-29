@@ -1,17 +1,59 @@
 angular.module('parrotPollApp')
-    .controller('dashboardPollCtrl', function($scope, $http, $location, $stateParams) {
-        $scope.mensajeError = undefined;
-        $scope.modoEdicion = false;
-
-        if ($stateParams.pollId) {
-            $scope.modoEdicion = true;
-
-            $http.get("api/poll/" + $stateParams.pollId).then(function(res) {
-                $scope.poll = res.data;
-            }, function(res) {
-                // acciones a realizar cuando se recibe una respuesta de error
+    .controller('dashboardPollCtrl', ['$scope', '$http', '$location', '$stateParams', 'dashboardService', 'userService', 'pollService', function($scope, $http, $location, $stateParams, dashboardService, userService, pollService) {
+        var dashboardPollVM = this;
+        //var
+        //func
+        function guardar() {
+            dashboardService.guardarPoll(dashboardPollVM.poll, function() {
+                $location.path('/dashboard');
             });
+        }
 
+        function editar() {
+            dashboardService.editarPoll(dashboardPollVM.poll, function() {
+                dashboardPollVM.mensajeExito = "Exito en la edición";
+            });
+        }
+        //asic
+        dashboardPollVM.mensajeError = undefined;
+        dashboardPollVM.modoEdicion = false;
+        dashboardPollVM.newQuestion = function() {
+            dashboardPollVM.poll.questions.push({
+                name: undefined,
+                answers: [{
+                    name: undefined
+                }]
+            });
+        };
+
+        dashboardPollVM.deleteQuestion = function(index) {
+            dashboardPollVM.poll.questions.splice(index, 1);
+        };
+
+        dashboardPollVM.newAnswer = function(question) {
+            question.answers.push({
+                name: undefined
+            });
+        };
+
+        dashboardPollVM.deleteAnswer = function(question, index) {
+            question.answers.splice(index, 1);
+        };
+
+        dashboardPollVM.guardar = function() {
+            if (dashboardPollVM.modoEdicion) {
+                editar();
+            } else {
+                guardar();
+            }
+        };
+
+        //ejec
+        if ($stateParams.pollId) {
+            dashboardPollVM.modoEdicion = true;
+            pollService.getPoll($stateParams.pollId, function(res) {
+                dashboardPollVM.poll = res;
+            });
         } else {
             var question = {
                 text: undefined,
@@ -24,73 +66,21 @@ angular.module('parrotPollApp')
                 description: undefined,
                 questions: [question]
             };
-            $scope.poll = poll;
-            $http.get('api/auth/user').then(function(res) {
-                $scope.usuario = res.data;
-                $scope.poll.owner = [$scope.usuario._id];
-                $scope.poll.ownerName = $scope.usuario.userName;
+
+            dashboardPollVM.poll = poll;
+
+            userService.getUser(function(res) {
+                dashboardPollVM.usuario = res;
+                dashboardPollVM.poll.owner = [dashboardPollVM.usuario._id];
+                dashboardPollVM.poll.ownerName = dashboardPollVM.usuario.userName;
             });
 
-            $scope.poll.isPublic = true;
-            $scope.poll.resultIsPublic = true;
-            $scope.poll.published = false;
+
+            dashboardPollVM.poll.isPublic = true;
+            dashboardPollVM.poll.resultIsPublic = true;
+            dashboardPollVM.poll.published = false;
         }
 
-        $scope.newQuestion = function() {
-            $scope.poll.questions.push({
-                name: undefined,
-                answers: [{
-                    name: undefined
-                }]
-            });
-        };
 
-        $scope.deleteQuestion = function(index) {
-            $scope.poll.questions.splice(index, 1);
-        };
 
-        $scope.newAnswer = function(question) {
-            question.answers.push({
-                name: undefined
-            });
-        };
-
-        $scope.deleteAnswer = function(question, index) {
-            question.answers.splice(index, 1);
-        };
-
-        $scope.guardar = function() {
-            if($scope.modoEdicion){
-              editar();
-            }else{
-              guardar();
-            }
-        };
-
-        function guardar() {
-          $scope.poll.published = !$scope.poll.published; 
-          var post = $http.post('api/poll', $scope.poll).then(
-              function(res) {
-                  // success callback
-                  $location.path('/dashboard');
-              },
-              function(response) {
-                  // error
-              }
-          );
-        }
-
-        function editar() {
-          $http.put('api/poll', $scope.poll).then(
-              function(res) {
-                  // success callback
-                  //$scope.poll = res.data;
-                  $scope.mensajeExito = "Exito en la edición";
-              },
-              function(response) {
-                  // error
-              }
-          );
-        }
-
-    });
+    }]);

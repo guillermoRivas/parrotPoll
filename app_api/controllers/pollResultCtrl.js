@@ -92,3 +92,22 @@ exports.getRepPollResultsCountry = function(req, res) {
         res.status(200).json(result);
     });
 };
+
+exports.getRepPollResultsTime = function(req, res) {
+    var id = mongoose.Types.ObjectId(req.params.id);
+    console.log('GET/getRepPollResultsTime');
+
+    PollResult.aggregate([
+          {
+              $match: { referencePoll: id}
+            },
+            {$project: {_id:1, year: { $year: "$creationDate" },
+               month: { $month: "$creationDate" },
+               day: { $dayOfMonth: "$creationDate" } }},
+
+               {$group: {_id: {year:'$year', day:'$day', month:'$month'}, nresults: { "$sum": 1 } }}
+      ]).exec(function(err, result) {
+        if (err) return res.status(500).send(err.message);
+        res.status(200).json(result);
+    });
+};

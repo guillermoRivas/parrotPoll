@@ -20,7 +20,7 @@ angular.module('parrotPollApp')
         };
 
         this.signup = function (user, callBack) {
-          $auth.signup($scope.userReg)
+          $auth.signup(user)
               .then(function(res) {
                   localStorage.setItem("parrotPollApp_token", res.data.token);
                   $location.path('/dashboard');

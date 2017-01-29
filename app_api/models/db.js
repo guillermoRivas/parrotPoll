@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var gracefulShutdown;
-//var dbURI = 'mongodb://localhost:27017/parrotPoll';
+var dbURI = 'mongodb://localhost:27017/parrotPoll';
 var dbURI = 'mongodb://parrot:xew%0926@ds054118.mlab.com:54118/parrotpoll';
   // if (process.env.NODE_ENV === 'production') {
   //     dbURI = "mongodb://parrot:xew%0926@ds054118.mlab.com:54118/parrotpoll";

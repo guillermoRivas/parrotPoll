@@ -1,5 +1,7 @@
 angular.module('parrotPollApp')
-    .controller('dashboardPollCtrl', ['$scope', '$http', '$location', '$stateParams', 'dashboardService', 'userService', 'pollService', function($scope, $http, $location, $stateParams, dashboardService, userService, pollService) {
+    .controller('dashboardPollCtrl', ['$location', '$stateParams', 'dashboardService', 'userService', 'pollService','securityService', function($location, $stateParams, dashboardService, userService, pollService, securityService) {
+      //checkSecurity
+      securityService.checkSecurity();
         var dashboardPollVM = this;
         //var
         //func

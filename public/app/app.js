@@ -11,7 +11,7 @@ angular.module('parrotPollApp', ['ui.router', 'satellizer', 'angular-loading-bar
                         templateUrl: "app/navbar.html"
                     },
                     "contenido": {
-                        templateUrl: "app/home.html"
+                        templateUrl: "app/home/home.html"
                     }
                 }
             })
@@ -22,18 +22,18 @@ angular.module('parrotPollApp', ['ui.router', 'satellizer', 'angular-loading-bar
                         templateUrl: "app/navbar.html"
                     },
                     "contenido": {
-                        templateUrl: "app/error.html"
+                        templateUrl: "app/errors/error.html"
                     }
                 }
             })
             .state('error404', {
-                url: "/error404",
+                url: "error404",
                 views: {
                     "nav": {
                         templateUrl: "app/navbar.html"
                     },
                     "contenido": {
-                        templateUrl: "app/error.html"
+                        templateUrl: "app/error/error404.html"
                     }
                 }
             })
@@ -66,7 +66,7 @@ angular.module('parrotPollApp', ['ui.router', 'satellizer', 'angular-loading-bar
                         templateUrl: "app/navbar.html"
                     },
                     "contenido": {
-                        templateUrl: "app/dashboard/resultados.html"
+                        templateUrl: "app/dashboard/resultados/resultados.html"
                     }
                 }
             })
@@ -77,7 +77,7 @@ angular.module('parrotPollApp', ['ui.router', 'satellizer', 'angular-loading-bar
                         templateUrl: "app/navbar.html"
                     },
                     "menu": {
-                        templateUrl: "app/dashboard/menu.html"
+                        templateUrl: "app/dashboard/menu/menu.html"
                     },
                     "contenido": {
                         templateUrl: "app/dashboard/dashboard_index.html"
@@ -91,10 +91,10 @@ angular.module('parrotPollApp', ['ui.router', 'satellizer', 'angular-loading-bar
                         templateUrl: "app/navbar.html"
                     },
                     "menu": {
-                        templateUrl: "app/dashboard/menu.html"
+                        templateUrl: "app/dashboard/menu/menu.html"
                     },
                     "contenido": {
-                        templateUrl: "app/dashboard/perfil.html"
+                        templateUrl: "app/dashboard/perfil/perfil.html"
                     }
                 }
             })
@@ -105,10 +105,10 @@ angular.module('parrotPollApp', ['ui.router', 'satellizer', 'angular-loading-bar
                         templateUrl: "app/navbar.html"
                     },
                     "menu": {
-                        templateUrl: "app/dashboard/menu.html"
+                        templateUrl: "app/dashboard/menu/menu.html"
                     },
                     "contenido": {
-                        templateUrl: "app/dashboard/poll.html"
+                        templateUrl: "app/dashboard/poll/poll.html"
                     }
                 }
             });
@@ -129,49 +129,3 @@ angular.module('parrotPollApp', ['ui.router', 'satellizer', 'angular-loading-bar
     }).config(function($logProvider) {
         $logProvider.debugEnabled(true);
     });
-
-function extendExceptionHandler($delegate, $log) {
-
-    function handleException(exception, cause) {
-        $delegate(exception, cause);
-
-        var errorData = {
-            exception: exception,
-            cause: cause
-        };
-
-        var msg = 'Weather Web App Error: ' + exception.message;
-        $log.debug(msg, errorData);
-    }
-
-    return handleException;
-}
-
-angular.module('parrotPollApp').factory('userFactory', function($auth, $http) {
-    var interfaz = {
-        user: undefined,
-        isAuthenticated: function() {
-            return $auth.isAuthenticated();
-        },
-        getUser: function() {
-            if ($auth.isAuthenticated() && !interfaz.user) {
-                $http.get('api/auth/user').then(function(res) {
-                    interfaz.user = res.data;
-                });
-            }
-        }
-    };
-    return interfaz;
-});
-
-angular.module('parrotPollApp').factory('HttpInterceptor', function($q,$location) {
-    return {
-     responseError: function(response) {
-        // Unauthorized
-        if(response.status==500){
-          $location.path('/error500');
-        }
-        return $q.reject(response);
-      }
-    };
-  });

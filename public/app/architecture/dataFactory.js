@@ -102,5 +102,10 @@ angular.module('parrotPollApp')
         return $http.get(reportPollResultsCountryURL+id);
     };
 
+    dataFactoryInterface.getReportPollResultsTime = function (id) {
+        return $http.get(reportPollResultsTimeURL+id);
+    };
+
+
     return dataFactoryInterface;
 }]);

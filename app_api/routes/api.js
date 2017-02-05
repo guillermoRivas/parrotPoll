@@ -1,3 +1,7 @@
+/**
+ * Module dependencies.
+ */
+
 var express = require('express');
 var router = express.Router();
 var PollCtrl = require('../controllers/pollCtrl');
@@ -6,6 +10,10 @@ var PollResultCtrl = require('../controllers/pollResultCtrl');
 var auth = require('../controllers/auth/auth');
 var middleware = require('../controllers/auth/authMiddleware');
 var InvitationCtrl = require('../controllers/invitationCtrl');
+
+/**
+ *  PollCtrl.
+ */
 
 router
     .get('/poll', PollCtrl.findAllPoll)
@@ -16,6 +24,9 @@ router
     .put('/poll', PollCtrl.updatePoll)
     .delete('/poll/:id', PollCtrl.deletePoll);
 
+/**
+ *  UserCtrl.
+ */
 
 router
     .get('/user', UserCtrl.findAllUsers)
@@ -26,21 +37,29 @@ router
     .put('/user', UserCtrl.updateUser)
     .post('/user/log', UserCtrl.login);
 
+/**
+ *  Estadisticas.
+ */
 router
     .get('/pollResults/:id', PollResultCtrl.getResultsPoll)
     .get('/pollResultsCount/:id', PollResultCtrl.countResutlsPoll)
     .post('/pollResult', PollResultCtrl.addPollResult)
     .get('/repPollResultsCountry/:id', PollResultCtrl.getRepPollResultsCountry)
     .get('/repPollResults/:id', PollCtrl.getRepPollResults)
-    .get('/getRepPollResultsTime/:id', PollResultCtrl.getRepPollResultsTime);
+    .get('/repPollResultsTime/:id', PollResultCtrl.getRepPollResultsTime);
 
-
+/**
+ *  auth.
+ */
 
 router
     .post('/auth/singup', auth.signup)
     .post('/auth/login', auth.login)
     .get('/auth/user', middleware.ensureAuthenticated, auth.getActualUser);
 
+/**
+ *  InvitationCtrl.
+ */
 router
     .get('/invitation/:id', InvitationCtrl.findByForInvitation)
     .post('/invitation/', InvitationCtrl.addInvitation)

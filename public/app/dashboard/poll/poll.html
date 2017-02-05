@@ -23,7 +23,7 @@
             </div>
             <div class="checkbox">
                 <label><input type="checkbox" ng-model="dashboardPollVM.poll.resultIsPublic">
-                    Resultados público</label>
+                    Resultados públicos</label>
             </div>
             <div ng-if="!dashboardPollVM.modoEdicion" class="checkbox">
                 <label><input type="checkbox" ng-model="dashboardPollVM.poll.published">
@@ -54,7 +54,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button ng-if="question.answers.length < 10" type="button" ng-click="dashboardPollVM.newAnswer(question)" class="btn btn-default" style="display: block; width: 100%;">new ansquer</button>
+                            <button ng-if="question.answers.length < 10" type="button" ng-click="dashboardPollVM.newAnswer(question)" class="btn btn-default" style="display: block; width: 100%;">nueva respuesta</button>
                         </div>
                     </div>
                 </div>
@@ -63,11 +63,11 @@
             <input type="submit" class="btn btn-success" style="margin-top:10px" value="Guardar">
         </form>
         <div ng-if="dashboardPollVM.mensajeError" class="alert alert-danger">
-            <strong>Danger!</strong>
+            <strong></strong>
             {{dashboardPollVM.mensajeError}}
         </div>
         <div ng-if="dashboardPollVM.mensajeExito" class="alert alert-success">
-            <strong>Danger!</strong>
+            <strong></strong>
             {{dashboardPollVM.mensajeExito}}
         </div>
     </div>

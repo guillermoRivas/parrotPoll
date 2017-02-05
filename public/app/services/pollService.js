@@ -5,8 +5,6 @@ angular.module('parrotPollApp')
             dataFactory.getCountPolls()
                 .then(function(res) {
                     callBack(Math.floor(res.data / pollsPorPagina));
-                }, function(res) {
-                    // acciones a realizar cuando se recibe una respuesta de error
                 });
         };
 
@@ -14,8 +12,6 @@ angular.module('parrotPollApp')
             dataFactory.getPoll(idPoll)
                 .then(function(res) {
                     callBack(res.data);
-                }, function(res) {
-                    // acciones a realizar cuando se recibe una respuesta de error
                 });
         };
 
@@ -23,8 +19,6 @@ angular.module('parrotPollApp')
             dataFactory.getPolls(limit, skip)
                 .then(function(res) {
                     callBack(res.data);
-                }, function(res) {
-                    // acciones a realizar cuando se recibe una respuesta de error
                 });
         };
 
@@ -32,8 +26,6 @@ angular.module('parrotPollApp')
             dataFactory.getResultsCount(reference)
                 .then(function(res) {
                     callBack(res.data);
-                }, function(res) {
-                    // acciones a realizar cuando se recibe una respuesta de error
                 });
         };
 
@@ -41,8 +33,6 @@ angular.module('parrotPollApp')
             dataFactory.getResults(reference)
                 .then(function(res) {
                     callBack(res.data);
-                }, function(res) {
-                    // acciones a realizar cuando se recibe una respuesta de error
                 });
         };
 

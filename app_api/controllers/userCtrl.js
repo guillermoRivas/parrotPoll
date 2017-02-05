@@ -62,6 +62,9 @@ exports.exixtUserByEmail = function(req, res) {
     });
 };
 
+/*
+  DEPRECATED
+*/
 exports.addUser = function(req, res) {
     console.log('POST/user');
     console.log(req.body);
@@ -93,6 +96,9 @@ exports.updateUser = function(req, res) {
     });
 };
 
+/*
+  DEPRECATED
+*/
 exports.login = function(req, res) {
     console.log('POST/login');
     console.log(req.body);
@@ -110,6 +116,9 @@ exports.login = function(req, res) {
     });
 };
 
+/*
+  DEPRECATED
+*/
 function loginfunction(req, callback) {
     User.findOne({
         'userName': req.userName
@@ -132,25 +141,20 @@ function loginfunction(req, callback) {
     });
 }
 
-/**
- * generates random string of characters i.e salt
- * @function
- * @param {number} length - Length of the random string.
- */
+/*
+  DEPRECATED
+*/
 var genRandomString = function(length) {
     return crypto.randomBytes(Math.ceil(length / 2))
-        .toString('hex') /** convert to hexadecimal format */
-        .slice(0, length); /** return required number of characters */
+        .toString('hex')
+        .slice(0, length);
 };
 
-/**
- * hash password with sha512.
- * @function
- * @param {string} password - List of required fields.
- * @param {string} salt - Data to be validated.
- */
+/*
+  DEPRECATED
+*/
 var sha512 = function(password, salt) {
-    var hash = crypto.createHmac('sha512', salt); /** Hashing algorithm sha512 */
+    var hash = crypto.createHmac('sha512', salt);
     hash.update(password);
     var value = hash.digest('hex');
     return {
@@ -159,12 +163,18 @@ var sha512 = function(password, salt) {
     };
 };
 
+/*
+  DEPRECATED
+*/
 function saltHashPassword(userpassword, callback) {
-    var salt = genRandomString(16); /** Gives us salt of length 16 */
+    var salt = genRandomString(16);
     var passwordData = sha512(userpassword, salt);
     callback(passwordData.passwordHash, salt);
 }
 
+/*
+  DEPRECATED
+*/
 function comparePassword(reqPassword, passwor, salt, callback) {
     var result = false;
     var reqPasswordHash = sha512(reqPassword, salt);

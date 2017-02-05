@@ -14,7 +14,7 @@
                         <div style="margin: 10px" ng-repeat="answer in question.answers">
                             <div class="row" ng-class="{seleccionada: answer.selected}">
                                 <div class="col-sm-4">
-                                    <button type="button" ng-click="pollVM.seleccionar(question,answer)" class="btn btn-default" style="display: block; width: 100%;">seleccional</button>
+                                    <button type="button" ng-click="pollVM.seleccionar(question,answer)" class="btn btn-default" style="display: block; width: 100%;">seleccionar</button>
                                 </div>
                                 <div class="col-sm-8">
                                     {{answer.text}}
@@ -26,9 +26,10 @@
             </div>
             <div ng-show="pollVM.mensajeFinal">
                 <div class="alert alert-success">
-                    <strong>Success!</strong>
+                    <strong>Exito!</strong>
                     {{pollVM.mensajeFinal}}
                 </div>
+
             </div>
             <div ng-show="pollVM.mensajeError">
                 <div class="alert alert-warning">
@@ -53,6 +54,7 @@
                 </div>
             </div>
         </div>
-        <button ng-show="!pollVM.resultados" type="button" ng-click="pollVM.guardar()" class="btn btn-default" style="display: block; width: 100%;">guardar</button>
+        <button ng-show="(!pollVM.resultados && !pollVM.Finalizado)" type="button" ng-click="pollVM.guardar()" class="btn btn-default" style="display: block; width: 100%;">guardar</button>
+        <button ng-show="(pollVM.resultados || pollVM.Finalizado)" type="button" ng-click="pollVM.home()" class="btn btn-default" style="display: block; width: 100%;">volver</button>
     </div>
 </div>

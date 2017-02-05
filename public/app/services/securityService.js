@@ -1,6 +1,11 @@
 angular.module('parrotPollApp')
     .service('securityService', ['$auth', '$location', function($auth, $location) {
 
+      this.checkSecurity = function () {
+        if(!$auth.isAuthenticated())
+        $location.path('#/home');
+      };
+
         this.logOut = function (idUser, callBack) {
             $auth.logout();
             $location.path('#/home');

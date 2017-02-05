@@ -124,13 +124,17 @@ angular.module('parrotPollApp')
             return result;
         };
 
+        Date.prototype.addDays = function(days) {
+          var dat = new Date(this.valueOf());
+          dat.setDate(dat.getDate() + days);
+          return dat;
+        };
+
         this.getReportPollResultsCountry = function(id, callback) {
             dataFactory.getReportPollResultsCountry(id)
                 .then(function(res) {
-                  var result = comonerReprtResultsCountry(res.data);
-                  callback(result);
-                }, function(res) {
-                    // acciones a realizar cuando se recibe una respuesta de error
+                    var result = comonerReprtResultsCountry(res.data);
+                    callback(result);
                 });
         };
 
@@ -139,22 +143,49 @@ angular.module('parrotPollApp')
                 lavels: [],
                 data: []
             };
+            var rangos = [];
+            if (false) {
+                var first = new Date(data[0].time);
+                var second = new Date(data[data.length - 1].time);
+                var dif = Math.round((second - first) / (1000 * 60 * 60 * 24));
+                dif = (dif/10);
+                for (i = 0; i < 10; i++) {
+                    var days = dif * (i + 1);
+                    rangos.push(first.addDays(days));
+                }
 
-            data.forEach(function(element, index, array) {
-                result.lavels.push(element._id);
-                result.data.push(element.nResults);
-            });
+                rangos.forEach(function(element, index, array) {
+                    var fecha = element;
+                    var count = 0;
 
+                    data.forEach(function(element, index, array) {
+                        var time = new Date(element.time);
+                        if (fecha.getTime() <= time.getTime())
+                            count += element.nresults;
+                    });
+
+                    result.lavels.push(fecha);
+                    result.data.push(count);
+
+                });
+
+            } else {
+
+                data.forEach(function(element, index, array) {
+
+                    var fecha = element._id.day + "-" + element._id.month + "-" + element._id.year;
+                    result.lavels.push(fecha);
+                    result.data.push(element.nresults);
+                });
+            }
             return result;
         };
 
         this.getReportPollResultsTime = function(id, callback) {
-            dataFactory.getReportPollResultsCountry(id)
+            dataFactory.getReportPollResultsTime(id)
                 .then(function(res) {
-                  var result = comonerReprtResultsTime(res.data);
-                  callback(result);
-                }, function(res) {
-                    // acciones a realizar cuando se recibe una respuesta de error
+                    var result = comonerReprtResultsTime(res.data);
+                    callback(result);
                 });
         };
 

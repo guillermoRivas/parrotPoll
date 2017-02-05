@@ -1,5 +1,5 @@
 angular.module('parrotPollApp')
-    .controller('loginSingupCtrl', ['$scope', '$http', '$location', '$auth', 'userFactory', 'userService', 'securityService', function($scope, $http, $location, $auth, userFactory, userService, securityService) {
+    .controller('loginSingupCtrl', ['$location', '$auth', 'userService', 'securityService', function($location, $auth, userService, securityService) {
         var loginSingupVM = this;
         //vars
         //func

@@ -1,6 +1,8 @@
 angular.module('parrotPollApp')
-    .controller('perfilCtrl', ['$scope', '$http', '$auth', 'userService', function($scope, $http, $auth, userService) {
+    .controller('perfilCtrl', ['$auth', 'userService','securityService', function($auth, userService,securityService) {
         var perfilVM = this;
+        //checkSecurity
+        securityService.checkSecurity();
         //var
         var userOriginal;
         //func

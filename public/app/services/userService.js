@@ -5,8 +5,6 @@ angular.module('parrotPollApp')
             dataFactory.getUser()
                 .then(function(res) {
                     callBack(res.data);
-                }, function(res) {
-                    // acciones a realizar cuando se recibe una respuesta de error
                 });
         };
 
@@ -14,8 +12,6 @@ angular.module('parrotPollApp')
             dataFactory.getInvitaciones(idUser)
                 .then(function(res) {
                     callBack(res.data);
-                }, function(res) {
-                    // acciones a realizar cuando se recibe una respuesta de error
                 });
         };
 
@@ -23,46 +19,28 @@ angular.module('parrotPollApp')
             dataFactory.deleteInvitaciones(invitacion._id)
                 .then(function(res) {
                     callBack();
-                }, function(res) {
-                    // acciones a realizar cuando se recibe una respuesta de error
                 });
         };
-
-        this.borrarInvitacion = function(id) {
-            dataFactory.deleteInvitaciones(id)
-                .then(function(res) {
-                  
-                }, function(res) {
-                    // acciones a realizar cuando se recibe una respuesta de error
-                });
-        };
-
 
         this.validarPassUser = function(user, rePass) {
             var result = true;
-
             result = user.password == rePass;
-
             return result;
         };
 
         this.existeUserName = function(userName, callBack) {
             dataFactory.getUserExistUserName(userName)
                 .then(function(res) {
-                  var existe = res.data.result;
+                    var existe = res.data.result;
                     callBack(existe);
-                }, function(res) {
-                    // acciones a realizar cuando se recibe una respuesta de error
                 });
         };
 
         this.existeUserEmail = function(email, callBack) {
             dataFactory.getUserExistUserEmail(email)
                 .then(function(res) {
-                  var existe = res.data.result;
+                    var existe = res.data.result;
                     callBack(existe);
-                }, function(res) {
-                    // acciones a realizar cuando se recibe una respuesta de error
                 });
         };
 
@@ -70,8 +48,6 @@ angular.module('parrotPollApp')
             dataFactory.getUserByName(nombre)
                 .then(function(res) {
                     callBack(res.data);
-                }, function(res) {
-                    // acciones a realizar cuando se recibe una respuesta de error
                 });
         };
 
@@ -79,10 +55,7 @@ angular.module('parrotPollApp')
             dataFactory.putUser(user)
                 .then(function(res) {
                     callBack(res.data);
-                }, function(res) {
-                    // acciones a realizar cuando se recibe una respuesta de error
                 });
         };
-
 
     }]);

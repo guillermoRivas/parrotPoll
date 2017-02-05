@@ -105,7 +105,9 @@ exports.getRepPollResultsTime = function(req, res) {
                month: { $month: "$creationDate" },
                day: { $dayOfMonth: "$creationDate" } }},
 
-               {$group: {_id: {year:'$year', day:'$day', month:'$month'}, nresults: { "$sum": 1 } }}
+               {$group: {_id: {year:'$year', day:'$day', month:'$month'}, nresults: { "$sum": 1 } }},
+               {$project: {_id:1, nresults:1, time: { $concat: [ {$substr: [ "$_id.year", 0, 4 ]}, "-", {$substr: [ '$_id.month', 0, 2 ]}, "-", {$substr: [ '$_id.day', 0, 2 ]} ] }} },
+               { $sort : { time : 1 } }
       ]).exec(function(err, result) {
         if (err) return res.status(500).send(err.message);
         res.status(200).json(result);

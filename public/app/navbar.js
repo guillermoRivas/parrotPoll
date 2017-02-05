@@ -1,5 +1,5 @@
 angular.module('parrotPollApp')
-    .controller('navBarCtrl', ['$scope', 'userService', 'securityService', function($scope, userService, securityService) {
+    .controller('navBarCtrl', ['userService', 'securityService', function(userService, securityService) {
         var navBarVM = this;
         //Vars
         navBarVM.invitaciones = [];

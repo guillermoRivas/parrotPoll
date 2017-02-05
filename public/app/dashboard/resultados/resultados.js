@@ -1,5 +1,7 @@
 angular.module('parrotPollApp')
-    .controller('resultadosCtrl', ['$scope', '$http', '$stateParams', 'dashboardService', 'pollService', function($scope, $http, $stateParams, dashboardService, pollService) {
+    .controller('resultadosCtrl', ['$stateParams', 'dashboardService', 'pollService', 'securityService', function($stateParams, dashboardService, pollService, securityService) {
+      //checkSecurity
+      securityService.checkSecurity();
         var resultadosVM = this;
         //var
         var refId = $stateParams.pollId;
@@ -34,9 +36,6 @@ angular.module('parrotPollApp')
         };
 
         resultadosVM.charLine = {};
-        resultadosVM.charLine.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales", "Tele Sales", "Corporate Sales"];
-        resultadosVM.charLine.data = [300, 500, 100, 40, 120];
-
         //eje
         pollService.getPoll(refId, function(data) {
             resultadosVM.poll = data;

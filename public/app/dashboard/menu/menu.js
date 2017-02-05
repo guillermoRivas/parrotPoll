@@ -1,11 +1,13 @@
 angular.module('parrotPollApp')
-    .controller('menuCtrl', function($scope, $http, $location) {
+    .controller('menuCtrl', ['$location','securityService',function($location,securityService) {
         var menuVM = this;
-        var path = $location.path();
-        menuVM.current = 1;
+        //checkSecurity
+        securityService.checkSecurity();
         //var
+        var path = $location.path();
         //func
         //asic
+        menuVM.current = 1;
         //ejec
         if(path == '/dashboard')
         menuVM.current = 1;
@@ -14,4 +16,4 @@ angular.module('parrotPollApp')
         if(path == '/dashboard/poll')
         menuVM.current = 3;
 
-    });
+    }]);

@@ -6,28 +6,22 @@
     <div class="row">
         <div class="col-md-6">
             <div class="panel panel-default">
-                <div class="panel-heading">Panel heading without title</div>
+                <div class="panel-heading">Resultados por pais</div>
                 <div class="panel-body">
                     <canvas id="polar-area" class="chart chart-polar-area" chart-data="resultadosVM.CharPolar.data" chart-labels="resultadosVM.CharPolar.labels" chart-options="resultadosVM.CharPolar.options"></canvas>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
-            <h2>Heading</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-            </p>
-            <p>
-                <a class="btn btn-default" href="#" role="button">Get json</a>
+            <h2>Resultados por pais</h2>
+            <p>Esta gráfica muestra el número de contestaciones a la votación dividido por país.Para ver el detalle de los resultados por país solo es necesario dejar el puntero del raton sobre la sección del gráfico.
             </p>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6">
-            <h2>Heading</h2>
-            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-            </p>
-            <p>
-                <a class="btn btn-default" href="#" role="button">Get json</a>
+            <h2>Resultados a lo largo del tiempo</h2>
+            <p>Esta gráfica muestra el número de contestaciones a la votación a lo largo del tiempo. La fecha esta en formato dia-mes-año.
             </p>
         </div>
         <div class="col-md-6">
@@ -49,7 +43,7 @@
                 <div class="progress-bar progress-bar-info" role="progressbar" style="width:{{(pregunta.total*100)/resultadosVM.totalResultados}}%">
                     <h4>
                         {{pregunta.answer}}
-                        {{(pregunta.total*100)/resultadosVM.totalResultados}}%
+                        {{((pregunta.total*100)/resultadosVM.totalResultados).toFixed(2)}}%
                     </h4>
                 </div>
             </div>

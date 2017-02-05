@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,23 +17,31 @@
     <script src="./bower_components/chart.js/dist/Chart.min.js"></script>
     <script src="./bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
     <script src="app/app.js" charset="utf-8"></script>
-    <script src="app/architecture/global.js" charset="utf-8"></script>
+    <script src="app/architecture/exceptionHandler.js" charset="utf-8"></script>
+    <script src="app/architecture/HttpInterceptorFactory.js" charset="utf-8"></script>
     <script src="app/architecture/dataFactory.js" charset="utf-8"></script>
-    <script src="app/architecture/utilService.js" charset="utf-8"></script>
-    <script src="app/architecture/securityService.js" charset="utf-8"></script>
-    <script src="app/userService.js" charset="utf-8"></script>
-    <script src="app/poll/pollService.js" charset="utf-8"></script>
-    <script src="app/dashboard/dashboardService.js" charset="utf-8"></script>
+
+    <script src="app/services/securityService.js" charset="utf-8"></script>
+    <script src="app/services/utilService.js" charset="utf-8"></script>
+    <script src="app/services/userService.js" charset="utf-8"></script>
+    <script src="app/services/pollService.js" charset="utf-8"></script>
+    <script src="app/services/dashboardService.js" charset="utf-8"></script>
+
     <script src="app/index.js" charset="utf-8"></script>
     <script src="app/navbar.js" charset="utf-8"></script>
-    <script src="app/home.js" charset="utf-8"></script>
+
+    <script src="app/home/home.js" charset="utf-8"></script>
     <script src="app/login/loginSingup.js" charset="utf-8"></script>
-    <script src="app/dashboard/dashboard.js" charset="utf-8"></script>
-    <script src="app/dashboard/menu.js" charset="utf-8"></script>
-    <script src="app/dashboard/perfil.js" charset="utf-8"></script>
-    <script src="app/dashboard/poll.js" charset="utf-8"></script>
-    <script src="app/dashboard/resultados.js" charset="utf-8"></script>
+
     <script src="app/poll/poll.js" charset="utf-8"></script>
+
+    <script src="app/dashboard/dashboard.js" charset="utf-8"></script>
+    <script src="app/dashboard/menu/menu.js" charset="utf-8"></script>
+    <script src="app/dashboard/perfil/perfil.js" charset="utf-8"></script>
+    <script src="app/dashboard/poll/poll.js" charset="utf-8"></script>
+    <script src="app/dashboard/resultados/resultados.js" charset="utf-8"></script>
+
+
 </head>
 
 <body ng-app="parrotPollApp">
@@ -43,13 +50,13 @@
         <div ui-view="menu"></div>
         <div ui-view="contenido" class="contenido">
             <div class="row">
-                <div class="container" ng-controller="indexCtrl">
+                <div class="container" ng-controller="indexCtrl as indexVm">
                     <div class="jumbotron">
                         <h1>Parrot poll</h1>
                         <p>Este sitio esta en construcción</p>
-                        <form ng-submit="redirect()">
+                        <form ng-submit="indexVm.redirect()">
                             <div id="subscribe">
-                                <input ng-model="password" type="password" placeholder="acceso desarrollo..." required>
+                                <input ng-model="indexVm.password" type="password" placeholder="acceso desarrollo..." required>
                                 <input type="submit" value="entrar">
                                 <div class="clear"></div>
                             </div>
@@ -71,5 +78,4 @@
         </div>
     </footer>
 </body>
-
 </html>

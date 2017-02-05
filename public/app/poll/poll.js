@@ -1,5 +1,5 @@
 angular.module('parrotPollApp')
-    .controller('pollCtrl', ['$scope', '$http', '$location', '$stateParams', 'pollService', 'userService', function($scope, $http, $location, $stateParams, pollService, userService) {
+    .controller('pollCtrl', ['$stateParams', 'pollService', 'userService', '$location', function($stateParams, pollService, userService, $location) {
         var pollVM = this;
         //vars
         var id = $stateParams.pollId;
@@ -7,7 +7,8 @@ angular.module('parrotPollApp')
         var showResult = false;
         //func
         function terminarPoll() {
-            pollVM.mensajeFinal = "La poll ha terminado";
+            pollVM.mensajeFinal = "La votación ha terminado";
+            pollVM.Finalizado = true;
         }
 
         function mostrarResultado() {
@@ -20,7 +21,7 @@ angular.module('parrotPollApp')
             });
         }
         //asin
-
+pollVM.Finalizado = false;
         pollVM.ocultarPreguntas = false;
 
         pollVM.seleccionar = function(questions, answer) {
@@ -29,7 +30,9 @@ angular.module('parrotPollApp')
             });
             answer.selected = (answer.selected) ? false : true;
         };
-
+pollVM.home = function () {
+    $location.path('/home');
+};
         pollVM.guardar = function(answer) {
             if (!pollService.validatePoll(pollVM.poll)) {
                 pollVM.mensajeError = "contesta todas las preguntas";
@@ -57,6 +60,7 @@ angular.module('parrotPollApp')
           showResult = pollVM.poll.resultIsPublic;
         });
 
+//TODO sacar a servicio
         $.get("http://ipinfo.io", function(response) {
             var loc = {
                 ip: response.ip,

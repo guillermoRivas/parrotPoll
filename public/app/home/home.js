@@ -1,5 +1,5 @@
 angular.module('parrotPollApp')
-    .controller('homeCtrl', ['$scope', '$http', '$location', 'pollService', 'utilService',function($scope, $http, $location, pollService, utilService) {
+    .controller('homeCtrl', ['$location', 'pollService', 'utilService',function($location, pollService, utilService) {
       var homeVM = this;
       //Vars
         homeVM.paginaActual = 0;

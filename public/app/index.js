@@ -1,12 +1,15 @@
 angular.module('parrotPollApp')
-    .controller('indexCtrl', function($scope, $http, $location) {
+    .controller('indexCtrl', ['$scope', '$location', function($scope, $location) {
+var indexVm = this;
+        //var
         var PASW = "4321";
-        $scope.redirect = function() {
-            if (PASW == $scope.password) {
-              $scope.$parent.$broadcast('navOk', false);
-              $location.path("/home");
-
+        //func
+        //asin
+        indexVm.redirect = function() {
+            if (PASW == indexVm.password) {
+                $scope.$parent.$broadcast('navOk', false);
+                $location.path("/home");
             }
         };
-
-    });
+        //eje
+    }]);

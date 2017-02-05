@@ -2,9 +2,9 @@ var mongoose = require('mongoose');
 var gracefulShutdown;
 
 //desarrollo
-var dbURI = 'mongodb://localhost:27017/parrotPoll';
+//var dbURI = 'mongodb://localhost:27017/parrotPoll';
 //produccion
-//var dbURI = 'mongodb://dbAdmin:password@ds054118.mlab.com:54118/parrotpoll';
+var dbURI = 'mongodb://dbAdmin:password@ds054118.mlab.com:54118/parrotpoll';
 
 
 mongoose.connect(dbURI);
